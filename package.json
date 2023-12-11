@@ -1,0 +1,16 @@
+{
+  "name": "artcoin-telegram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clear": "kill -9 $(lsof -ti:3000) && kill -9 $(lsof -ti:8080)",
+    "dev:start": "concurrently --kill-others  \"cd api && npm run start:dev\" \"cd dashboard && npm run serve\"",
+    "dev": "(npm run clear) && (npm run dev:start)"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
