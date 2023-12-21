@@ -28,7 +28,7 @@
           <div class="col-lg-3 col-md-6 col-12">
             <card
               title="Categories"
-              :value="`${organizations.length}`"
+              :value="`${categories.length}`"
               :percentage="stats.clients.percentage"
               iconClass="ni ni-building"
               iconBackground="bg-gradient-warning"
@@ -80,7 +80,7 @@ export default {
     ...mapGetters({
       users: "users/getUsers",
       sellers: "sellers/getSellers",
-      organizations: "organizations/getOrganizations",
+      categories: "categories/getCategories",
       products: "products/getProducts",
     })
   },

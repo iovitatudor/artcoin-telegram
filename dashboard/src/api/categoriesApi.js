@@ -1,28 +1,28 @@
 import {DefaultApiInstance} from '@/api';
 
-export const OrganizationsApi = {
+export const CategoriesApi = {
     getAll() {
-        const url = `/api/organizations`;
+        const url = `/api/categories`;
         return DefaultApiInstance.get(url);
     },
 
     getById(id) {
-        const url = `/api/organizations/${id}`;
+        const url = `/api/categories/${id}`;
         return DefaultApiInstance.get(url);
     },
 
     create(data) {
-        const url = `/api/organizations`;
+        const url = `/api/categories`;
         return DefaultApiInstance.post(url, data);
     },
 
     update(id, data) {
-        const url = `/api/organizations/${id}`;
+        const url = `/api/categories/${id}`;
         return DefaultApiInstance.patch(url, data);
     },
 
     delete(id) {
-        const url = `/api/organizations/${id}`;
+        const url = `/api/categories/${id}`;
         return DefaultApiInstance.delete(url);
     }
 };

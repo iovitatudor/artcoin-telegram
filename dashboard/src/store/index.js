@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import config from '@/store/config';
 import users from "@/store/users";
 import sellers from "@/store/sellers";
-import organizations from "@/store/organizations";
+import categories from "@/store/categories";
 import products from "@/store/products";
 
 export default new Vuex.Store({
@@ -11,7 +11,7 @@ export default new Vuex.Store({
         config,
         users,
         sellers,
-        organizations,
+        categories,
         products,
     },
 });

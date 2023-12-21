@@ -5,7 +5,7 @@
         <argon-alert v-if="alertVisible">
           {{ alert.message }}
         </argon-alert>
-        <organizations-table/>
+        <categories-table/>
       </div>
     </div>
   </div>
@@ -13,14 +13,14 @@
 
 <script>
 import {mapGetters} from "vuex";
-import OrganizationsTable from "@/views/Organizations/components/OrganizationsTable.vue";
+import CategoriesTable from "@/views/Categories/components/CategoriesTable.vue";
 import ArgonAlert from "@/components/ArgonAlert.vue";
 
 export default {
-  name: "organizations",
+  name: "categories",
   components: {
     ArgonAlert,
-    OrganizationsTable
+    CategoriesTable
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      alert: 'organizations/getAlert',
+      alert: 'categories/getAlert',
     })
   }
 };

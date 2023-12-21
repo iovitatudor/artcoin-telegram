@@ -41,7 +41,7 @@ export default {
     ...mapActions({
       fetchUsers: "users/fetchUsers",
       fetchSellers: "sellers/fetchSellers",
-      fetchOrganizations: "organizations/fetchOrganizations",
+      fetchCategories: "categories/fetchCategories",
       fetchProducts: "products/fetchProducts",
     }),
   },
@@ -61,7 +61,7 @@ export default {
   async mounted() {
     await this.fetchUsers();
     await this.fetchSellers();
-    // await this.fetchOrganizations();
+    await this.fetchCategories();
     await this.fetchProducts();
   },
   beforeMount() {

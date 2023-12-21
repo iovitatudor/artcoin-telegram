@@ -5,59 +5,42 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Edit Organization</p>
+              <p class="mb-0">Edit Category</p>
             </div>
           </div>
           <div class="card-body">
-            <p class="text-uppercase text-sm">Organization Information</p>
+            <p class="text-uppercase text-sm">Category Information</p>
             <argon-alert v-if="alertVisible">
               {{ alert.message }}
             </argon-alert>
-            <form action="" v-if="organization" @submit.prevent="submitForm" autocomplete="off">
+            <form action="" v-if="category" @submit.prevent="submitForm" autocomplete="off">
               <div class="row">
                 <div class="col-md-12">
                   <div class="row mt-1">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
+                      <label class="form-control-label">Parent Category</label>
+                      <div class="form-group">
+                        <select class="form-select" v-model="form.parentId">
+                          <option value="1" selected>Without a parent</option>
+                          <option :value="category.id" v-for="category in categories" :key="category.id">
+                            {{ category.name }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
                       <label for="example-text-input" class="form-control-label">Name</label>
                       <argon-input type="text"
                                    name="name"
-                                   :value="this.organization.name"
+                                   :value="this.category.name"
                                    @input="form.name = $event.target.value"/>
                     </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">Email</label>
-                      <argon-input type="email"
-                                   name="email"
-                                   :value="this.organization.email"
-                                   @input="form.email = $event.target.value"/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">Phone</label>
-                      <argon-input type="tel"
-                                   name="phone"
-                                   :value="this.organization.phone"
-                                   @input="form.phone = $event.target.value"/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">Country</label>
-                      <argon-input type="text"
-                                   name="country"
-                                   :value="this.organization.country"
-                                   @input="form.country = $event.target.value"/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">City</label>
-                      <argon-input type="text"
-                                   name="city"
-                                   :value="this.organization.city"
-                                   @input="form.city = $event.target.value"/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">Address</label>
-                      <argon-input type="text"
-                                   name="address"
-                                   :value="this.organization.address"
-                                   @input="form.address = $event.target.value"/>
+                    <div class="col-md-12">
+                      <label class="form-control-label">Description</label>
+                      <argon-textarea
+                          name="description"
+                          :value="form.description"
+                          @input="form.description = $event.target.value"/>
                     </div>
                   </div>
                 </div>
@@ -87,10 +70,12 @@ import {mapActions, mapGetters} from "vuex";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import ArgonAlert from "@/components/ArgonAlert.vue";
+import ArgonTextarea from "@/components/ArgonTextarea.vue";
 
 export default {
-  name: "edit-organization",
+  name: "edit-category",
   components: {
+    ArgonTextarea,
     ArgonAlert,
     ArgonInput,
     ArgonButton,
@@ -101,14 +86,11 @@ export default {
       backEndUrl: process.env.VUE_APP_BACK_END_URL,
       errors: [],
       showMenu: false,
-      organization: null,
+      category: null,
       form: {
+        parentId: 1,
         name: null,
-        email: null,
-        phone: null,
-        country: null,
-        city: null,
-        address: null,
+        description: null,
       }
     };
   },
@@ -125,7 +107,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      alert: 'organizations/getAlert',
+      categories: 'categories/getCategories',
+      alert: 'categories/getAlert',
     })
   },
   mounted() {
@@ -133,14 +116,15 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchOrganizationById: 'organizations/fetchOrganizationById',
-      editOrganization: 'organizations/editOrganization',
+      fetchCategoryById: 'categories/fetchCategoryById',
+      editCategory: 'categories/editCategory',
     }),
     async initData() {
       const id = this.$route.params.id;
-      const response = await this.fetchOrganizationById(id);
-      this.organization = response.data;
-      this.form.name = this.organization.name;
+      const response = await this.fetchCategoryById(id);
+      this.category = response.data;
+      this.form.name = this.category.name;
+      this.form.parentId = this.category.parentId;
     },
     async submitForm() {
       if (this.validateForm()) {
@@ -149,7 +133,7 @@ export default {
           if (this.form[field] !== null)
             formData.append(field, this.form[field]);
         }
-        await this.editOrganization({id: this.organization.id, formData});
+        await this.editCategory({id: this.category.id, formData});
         await this.initData();
       }
       return false;

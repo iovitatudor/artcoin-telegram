@@ -5,13 +5,13 @@ import Signin from "../views/Signin.vue";
 import AuthGuard from "@/guards/AuthGuard";
 import GuestGuard from "@/guards/GuestGuard";
 import Users from "@/views/Users/Users.vue";
-import Sellers from "@/views/Sellers/Sellers.vue";
 import UserEdit from "@/views/Users/UserEdit.vue";
+import Sellers from "@/views/Sellers/Sellers.vue";
 import SellersEdit from "@/views/Sellers/SellersEdit.vue";
-import Organizations from "@/views/Organizations/Organizations.vue";
+import Categories from "@/views/Categories/Categories.vue";
+import CategoriesEdit from "@/views/Categories/CategoriesEdit.vue";
 import Products from "@/views/Products/Products.vue";
 import ProductEdit from "@/views/Products/ProductEdit.vue";
-import OrganizationsEdit from "@/views/Organizations/OrganizationsEdit.vue";
 
 const routes = [
     {
@@ -51,15 +51,15 @@ const routes = [
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/organizations",
-        name: "Organizations",
-        component: Organizations,
+        path: "/dashboard/categories",
+        name: "Categories",
+        component: Categories,
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/organizations/edit/:id",
-        name: "Edit Organizations",
-        component: OrganizationsEdit,
+        path: "/dashboard/categories/edit/:id",
+        name: "Edit Category",
+        component: CategoriesEdit,
         beforeEnter: AuthGuard,
     },
     {
