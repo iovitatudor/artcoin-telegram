@@ -52,7 +52,7 @@ export class CrudUsersService {
     if (!id)
       throw new HttpException(
         "id is required",
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     if (avatar) {
       updateUserDto.avatar = await this.fileService.createFile(avatar);
@@ -67,7 +67,7 @@ export class CrudUsersService {
     if (!id)
       throw new HttpException(
         "id is required",
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     return this.userRepository.delete(id);
   }

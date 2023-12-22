@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Products/Services table ({{ products.length }})</h6>
-      <product-create/>
+      <h6>{{ currentCategory.name }} : Products/Services ({{ products.length }})</h6>
+      <product-create :currentCategory="currentCategory"/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
       <div class="table-responsive p-0">
@@ -11,7 +11,9 @@
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Product</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Reward</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Price</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Category</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Seller</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>
           </tr>
@@ -23,19 +25,37 @@
                 {{ index + 1 }}
               </div>
             </td>
-            <td class="align-middle ps-4">
-              <span class="text-secondary text-sm">{{ product.name }}</span>
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div>
+                  <img :src="`${backEndUrl}/${product.image}`"
+                       class="avatar avatar-sm me-3"
+                       alt="user1"
+                       v-if="product.image !== 'avatar-mock.png'"
+                  />
+                </div>
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{ product.name }}</h6>
+                </div>
+              </div>
             </td>
             <td class="align-middle ps-4">
-              <span class="text-secondary text-xs font-weight-bold">{{ product.reward }} SOL</span>
+              <span class="text-secondary text-xs">{{ product.price }}</span>
+            </td>
+            <td class="align-middle ps-4">
+              <span class="text-secondary text-xs">{{ product.category.name }}</span>
+            </td>
+            <td class="align-middle ps-4">
+              <span class="text-secondary text-xs">{{ product.seller.name }}</span>
             </td>
             <td class="align-middle">
               <router-link
                   class="text-secondary font-weight-bold text-xs"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
-                  :to="`/dashboard/task-types/edit/${product.id}`"
-              >Edit
+                  :to="`/dashboard/products-services/edit/${product.id}`"
+              >
+                <b class="text-primary">Edit</b>
               </router-link>
             </td>
             <td class="align-middle">
@@ -45,7 +65,7 @@
                   data-toggle="tooltip"
                   data-original-title="Edit user"
                   @click.prevent="removeProduct(product.id)">
-                Delete
+                <b class="text-danger">Delete</b>
               </a>
             </td>
           </tr>
@@ -57,28 +77,25 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions} from "vuex";
 import ProductCreate from "@/views/Products/components/ProductCreate.vue";
 
 export default {
   name: "products-table",
+  props: ['products', 'currentCategory'],
   components: {
     ProductCreate
   },
   data() {
     return {
-      backEndUrl: process.env.VUE_APP_BACK_END_URL
+      backEndUrl: process.env.VUE_APP_BACK_END_URL,
     }
-  },
-  computed: {
-    ...mapGetters({
-      products: "products/getProducts",
-    })
   },
   methods: {
     ...mapActions({
       removeProduct: "products/removeProduct",
     }),
+
   }
 };
 </script>

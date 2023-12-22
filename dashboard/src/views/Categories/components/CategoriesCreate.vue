@@ -76,7 +76,7 @@ export default {
     alert() {
       if (this.alert.status === 'success') {
         this.resetForm();
-        this.toggleConfigurator();
+        this.hideConfigurator();
       }
       if (this.alert.status === 'error') {
         this.errors.push(this.alert.message);
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      toggleConfigurator: "config/toggleConfigurator",
+      hideConfigurator: "config/hideConfigurator",
       navbarMinimize: "config/navbarMinimize"
     }),
     ...mapActions({

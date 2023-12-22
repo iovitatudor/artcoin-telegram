@@ -5,6 +5,7 @@ export class CreateCategoryDto {
   @ApiProperty({ example: 1 })
   @IsString()
   @IsNotEmpty()
+  @ValidateIf((o) => "parentId" in o)
   parentId: string;
 
   @ApiProperty({ example: "Spaces" })

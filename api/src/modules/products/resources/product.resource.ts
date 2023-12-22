@@ -13,7 +13,7 @@ export class ProductResource {
   public name: string;
   @ApiProperty({ example: "A co-working space located..." })
   public description: string;
-  public price: number;
+  public price: string;
   @ApiProperty({ example: "image-mock.png" })
   public image: string;
   @ApiProperty({ example: "Co-working hub" })
@@ -29,7 +29,7 @@ export class ProductResource {
   @ApiProperty({ example: "1 working day" })
   public unit_item: string;
   @ApiProperty({ example: 1 })
-  public seats_numbers: number;
+  public seats_numbers: string;
   @ApiProperty({ example: 10 })
 
   @ApiProperty({ example: CategoryResource })
@@ -50,8 +50,10 @@ export class ProductResource {
     this.facilities_amenities = product.facilities_amenities;
     this.unit_item = product.unit_item;
     this.seats_numbers = product.seats_numbers;
-    this.category = new CategoryResource(product.category);
-    this.seller = new SellersResource(product.seller);
+    this.category = product.category
+      ? new CategoryResource(product.category)
+      : null;
+    this.seller = product.seller ? new SellersResource(product.seller) : null;
   }
 
   public static collect(products): ProductResource[] {

@@ -35,6 +35,14 @@ export class CategoriesController {
     return CategoryResource.collect(categories);
   }
 
+  @ApiResponse({ status: 200, type: [CategoryResource] })
+  @ApiOperation({ summary: "Get all categories" })
+  @Get('/children')
+  async findChildren() {
+    const categories = await this.categoriesService.findAllChildren();
+    return CategoryResource.collect(categories);
+  }
+
   @ApiResponse({ status: 200, type: CategoryResource })
   @ApiOperation({ summary: "Get category by id" })
   @Get(":id")

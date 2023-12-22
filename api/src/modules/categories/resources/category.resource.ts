@@ -5,6 +5,8 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CategoryResource {
   @ApiProperty({ example: 1 })
   public id: number;
+  @ApiProperty({ example: 1 })
+  public parentId: number;
   @ApiProperty({ example: "Spaces" })
   public name: string;
   @ApiProperty({ example: "A co-working space located..." })
@@ -14,9 +16,12 @@ export class CategoryResource {
 
   public constructor(category) {
     this.id = category.id;
+    this.parentId = category.parentId;
     this.name = category.name;
     this.description = category.description;
-    this.children = category.children ? CategoryResource.collect(category.children) : [];
+    this.children = category.children
+      ? CategoryResource.collect(category.children)
+      : [];
   }
 
   public static collect(categories): CategoryResource[] {

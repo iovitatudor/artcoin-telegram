@@ -1,31 +1,20 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  TreeChildren,
-  TreeParent
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Product } from "../../products/entities/products.entity";
 
 @Entity()
-export class Category {
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "uuid", default: 1 })
-  parentId: string;
+  @Column({ type: "uuid" })
+  productId: string;
 
-  @TreeChildren()
-  children: Category[];
-
-  @TreeParent()
-  parent: Category;
+  @ManyToOne(() => Product)
+  product: Product;
 
   @Column({ type: "varchar", length: 30 })
-  name: string;
-
-  @Column({ type: "text", nullable: true })
-  description: string;
+  price: string;
 
   @CreateDateColumn({
     type: "timestamp",

@@ -12,8 +12,7 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
     private readonly fileService: FilesService
-  ) {
-  }
+  ) {}
 
   async create(createProductDto: CreateProductDto, image) {
     try {
@@ -28,6 +27,15 @@ export class ProductsService {
 
   findAll(): Promise<Product[]> {
     return this.productRepository.find({
+      order: { id: "DESC" },
+      relations: { category: true, seller: true }
+    });
+  }
+
+  findAllByCategory(categoryId: string): Promise<Product[]> {
+    return this.productRepository.find({
+      order: { id: "DESC" },
+      where: { categoryId },
       relations: { category: true, seller: true }
     });
   }
@@ -61,11 +69,16 @@ export class ProductsService {
     }
   }
 
-  remove(id: number): Promise<{ affected?: number }> {
-    try {
-      return this.productRepository.delete(id);
-    } catch (e) {
-      throw new HttpException(e.detail, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
+  async remove(id: number): Promise<Product> {
+    const product = await this.findOne(id);
+
+    if (!product)
+      throw new HttpException(
+        "id is required",
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    await this.productRepository.delete(id);
+
+    return product;
   }
 }

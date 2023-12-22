@@ -42,7 +42,9 @@ export default {
       fetchUsers: "users/fetchUsers",
       fetchSellers: "sellers/fetchSellers",
       fetchCategories: "categories/fetchCategories",
+      fetchChildren: "categories/fetchChildren",
       fetchProducts: "products/fetchProducts",
+      fetchOrders: "orders/fetchOrders",
     }),
   },
   computed: {
@@ -62,7 +64,9 @@ export default {
     await this.fetchUsers();
     await this.fetchSellers();
     await this.fetchCategories();
+    await this.fetchChildren();
     await this.fetchProducts();
+    await this.fetchOrders();
   },
   beforeMount() {
     this.$store.state.config.isTransparent = "bg-transparent";

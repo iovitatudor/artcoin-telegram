@@ -51,11 +51,11 @@ export class Product {
   @Column({ type: "varchar", length: 100, default: UnitItemEnum.oneHour })
   unit_item: UnitItemEnum;
 
-  @Column({ type: "integer", default: 0 })
-  seats_numbers: number;
+  @Column({ type: "varchar", default: "0" })
+  seats_numbers: string;
 
-  @Column({ type: "integer", default: 0 })
-  price: number;
+  @Column({ type: "varchar", default: "0" })
+  price: string;
 
   @Column({ type: "varchar", length: 255, default: "image-mock.png" })
   image: string;

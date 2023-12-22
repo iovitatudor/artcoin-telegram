@@ -2,9 +2,10 @@ import { IsNotEmpty, IsString, MinLength, ValidateIf } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateCategoryDto {
-  @ApiProperty({ example: 0 })
+  @ApiProperty({ example: 1 })
   @IsString()
   @IsNotEmpty()
+  @ValidateIf((o) => "parentId" in o)
   parentId: string;
 
   @ApiProperty({ example: "Spaces" })

@@ -7,7 +7,7 @@ export default {
         alert: {
             message: null,
             status: null,
-        }
+        },
     },
     getters: {
         getProducts: (state) => state.products,
@@ -19,7 +19,7 @@ export default {
         },
         setAlert(state, alert) {
             state.alert = alert;
-        }
+        },
     },
     actions: {
         async addProduct({commit}, data) {
@@ -49,6 +49,14 @@ export default {
                 console.error(e);
             }
         },
+        async fetchProductsByCategory({commit}, id) {
+            try {
+                return await ProductsApi.getAllByCategory(id);
+            } catch (e) {
+                commit('setAlert', {message: e.response.data.message, status: 'error'});
+                console.error(e);
+            }
+        },
         async editProduct({commit}, data) {
             try {
                 await ProductsApi.update(data.id, data.formData);
@@ -64,6 +72,7 @@ export default {
             if (confirm('Are you sure you want to delete this product?')) {
                 try {
                     await ProductsApi.delete(id);
+                    commit('setAlert', {message: 'Product has been successfully deleted!', status: 'success'});
                     const response = await ProductsApi.getAll();
                     return commit('setProducts', response.data);
                 } catch (e) {

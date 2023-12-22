@@ -14,6 +14,8 @@ import { Category } from "./modules/categories/entities/categories.entity";
 import { CategoriesModule } from "./modules/categories/categories.module";
 import { Product } from "./modules/products/entities/products.entity";
 import { ProductsModule } from "./modules/products/products.module";
+import { OrdersModule } from "./modules/orders/orders.module";
+import { Order } from "./modules/orders/entities/orders.entity";
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { ProductsModule } from "./modules/products/products.module";
       port: Number(process.env.DB_PORT),
       password: process.env.DB_PASSWORD,
       username: process.env.DB_USERNAME,
-      entities: [User, Seller, Category, Product],
+      entities: [User, Seller, Category, Product, Order],
       database: process.env.DB_DATABASE,
       synchronize: true,
       logging: true
@@ -40,7 +42,8 @@ import { ProductsModule } from "./modules/products/products.module";
     SellersModule,
     AuthModule,
     CategoriesModule,
-    ProductsModule
+    ProductsModule,
+    OrdersModule
   ],
   controllers: [],
   providers: []

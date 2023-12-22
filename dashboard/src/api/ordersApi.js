@@ -1,33 +1,28 @@
 import {FormDataApiInstance, DefaultApiInstance} from '@/api';
 
-export const ProductsApi = {
+export const OrdersApi = {
     getAll() {
-        const url = `/api/products`;
-        return DefaultApiInstance.get(url);
-    },
-
-    getAllByCategory(id) {
-        const url = `/api/products/category/${id}`;
+        const url = `/api/orders`;
         return DefaultApiInstance.get(url);
     },
 
     getById(id) {
-        const url = `/api/products/${id}`;
+        const url = `/api/orders/${id}`;
         return DefaultApiInstance.get(url);
     },
 
     create(data) {
-        const url = `/api/products`;
+        const url = `/api/orders`;
         return FormDataApiInstance.post(url, data);
     },
 
     update(id, data) {
-        const url = `/api/products/${id}`;
+        const url = `/api/orders/${id}`;
         return FormDataApiInstance.patch(url, data);
     },
 
     delete(id) {
-        const url = `/api/products/${id}`;
+        const url = `/api/orders/${id}`;
         return DefaultApiInstance.delete(url);
     }
 };

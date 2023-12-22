@@ -6,6 +6,11 @@ export const CategoriesApi = {
         return DefaultApiInstance.get(url);
     },
 
+    getAllChildren() {
+        const url = `/api/categories/children`;
+        return DefaultApiInstance.get(url);
+    },
+
     getById(id) {
         const url = `/api/categories/${id}`;
         return DefaultApiInstance.get(url);

@@ -22,6 +22,9 @@ export default {
         toggleConfigurator(state) {
             state.showConfig = !state.showConfig;
         },
+        hideConfigurator(state) {
+            state.showConfig = false;
+        },
         navbarMinimize(state) {
             const sidenav_show = document.querySelector(".g-sidenav-show");
 

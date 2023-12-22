@@ -35,6 +35,14 @@ export class ProductsController {
     return ProductResource.collect(products);
   }
 
+  @ApiResponse({ status: 200, type: [ProductResource] })
+  @ApiOperation({ summary: "Get all products" })
+  @Get("/category/:categoryId")
+  async findAllByCategory(@Param("categoryId") categoryId: string) {
+    const products = await this.productService.findAllByCategory(categoryId);
+    return ProductResource.collect(products);
+  }
+
   @ApiResponse({ status: 200, type: ProductResource })
   @ApiOperation({ summary: "Get product by id" })
   @Get(":id")

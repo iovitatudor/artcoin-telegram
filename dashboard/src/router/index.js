@@ -12,6 +12,7 @@ import Categories from "@/views/Categories/Categories.vue";
 import CategoriesEdit from "@/views/Categories/CategoriesEdit.vue";
 import Products from "@/views/Products/Products.vue";
 import ProductEdit from "@/views/Products/ProductEdit.vue";
+import Orders from "@/views/Orders/Orders.vue";
 
 const routes = [
     {
@@ -63,7 +64,7 @@ const routes = [
         beforeEnter: AuthGuard,
     },
     {
-        path: "/dashboard/products-services",
+        path: "/dashboard/products-services/:id/",
         name: "Products/Services",
         component: Products,
         beforeEnter: AuthGuard,
@@ -72,6 +73,12 @@ const routes = [
         path: "/dashboard/products-services/edit/:id",
         name: "Edit Products/Services",
         component: ProductEdit,
+        beforeEnter: AuthGuard,
+    },
+    {
+        path: "/dashboard/orders",
+        name: "Orders",
+        component: Orders,
         beforeEnter: AuthGuard,
     },
 ];

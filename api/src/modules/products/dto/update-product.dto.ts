@@ -72,16 +72,16 @@ export class UpdateProductDto {
   unit_item: UnitItemEnum;
 
   @ApiProperty({ example: 1 })
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   @ValidateIf((o) => "seats_numbers" in o)
-  seats_numbers: number;
+  seats_numbers: string;
 
   @ApiProperty({ example: 1 })
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   @ValidateIf((o) => "price" in o)
-  price: number;
+  price: string;
 
   @ApiProperty({
     format: "binary",

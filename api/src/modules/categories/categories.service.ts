@@ -1,9 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository, UpdateResult } from "typeorm";
-import { CreateCategoryDto } from "./dto/create-category.dto";
-import { UpdateCategoryDto } from "./dto/update-category.dto";
-import { Category } from "./entities/categories.entity";
+import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
+import {InjectRepository} from "@nestjs/typeorm";
+import {Not, Repository, UpdateResult} from "typeorm";
+import {CreateCategoryDto} from "./dto/create-category.dto";
+import {UpdateCategoryDto} from "./dto/update-category.dto";
+import {Category} from "./entities/categories.entity";
 
 @Injectable()
 export class CategoriesService {
@@ -15,20 +15,31 @@ export class CategoriesService {
 
   async create(createCategoryDto: CreateCategoryDto) {
     try {
-      return await this.categoryRepository.save({ ...createCategoryDto });
+      return await this.categoryRepository.save({...createCategoryDto});
     } catch (e) {
       throw new HttpException(e.detail, HttpStatus.UNPROCESSABLE_ENTITY);
     }
   }
 
   findAll(): Promise<Category[]> {
-    return this.categoryRepository.find({ relations: { children: true } });
+    return this.categoryRepository.find({
+      where: { parentId: "1", id: Not(1) },
+      order: { id: "ASC" },
+      relations: { children: true }
+    });
+  }
+
+  findAllChildren(): Promise<Category[]> {
+    return this.categoryRepository.find({
+      where: { parentId: Not('1') },
+      order: { id: "ASC" },
+    });
   }
 
   async findOne(id: number): Promise<Category> {
     try {
       return await this.categoryRepository.findOneOrFail({
-        where: { id }
+        where: {id}
       });
     } catch (e) {
       throw new HttpException(

@@ -4,6 +4,7 @@ export default {
     namespaced: true,
     state: {
         categories: [],
+        childrenCategories: [],
         alert: {
             message: null,
             status: null,
@@ -11,11 +12,15 @@ export default {
     },
     getters: {
         getCategories: (state) => state.categories,
+        getChildrenCategories: (state) => state.childrenCategories,
         getAlert: (state) => state.alert,
     },
     mutations: {
         setCategories(state, categories) {
             state.categories = categories;
+        },
+        setChildrenCategories(state, childrenCategories) {
+            state.childrenCategories = childrenCategories;
         },
         setAlert(state, alert) {
             state.alert = alert;
@@ -45,6 +50,14 @@ export default {
             try {
                 const response = await CategoriesApi.getAll();
                 return commit('setCategories', response.data);
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        async fetchChildren({commit}) {
+            try {
+                const response = await CategoriesApi.getAllChildren();
+                return commit('setChildrenCategories', response.data);
             } catch (e) {
                 console.error(e);
             }
