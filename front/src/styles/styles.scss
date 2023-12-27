@@ -40,6 +40,7 @@ body {
 
 .navbar-area {
   position: fixed;
+  z-index: 9999;
   width: 100%;
   height: 60px;
   left: 0;
@@ -54,6 +55,10 @@ body {
     flex: 1;
     text-align: center;
     color: #FFF;
+
+    a {
+      color: #FFF;
+    }
   }
 
   .btn-menu {
@@ -77,7 +82,7 @@ body {
   background-color: #DD1A33;
 }
 
-.home-area {
+.content-area {
   h2 {
     margin: 20px 0 0 0;
     text-align: center;
@@ -95,8 +100,24 @@ body {
     max-width: 100%;
   }
 }
+
 .drawer-area {
   color: #FFF;
   font-family: "Muli", sans-serif;
 }
 
+.card-properties {
+  margin-top: 20px;
+  padding-top: 30px;
+  border-top: 1px solid #ddd;
+
+
+  .card-properties-item {
+    margin-bottom: 20px;
+
+    a {
+      color: #151e27;
+      font-weight: 600;
+    }
+  }
+}

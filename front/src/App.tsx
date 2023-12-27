@@ -5,7 +5,9 @@ import './styles/styles.scss';
 import './styles/effects.scss';
 import {createTheme, ThemeProvider} from '@mui/material';
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
+import ProductPage from "./pages/ProductPage";
 
 // @ts-ignore
 // const tg = window.Telegram.WebApp
@@ -36,10 +38,10 @@ const App = () => {
           <Header/>
           <div className="wrapper">
             <Routes>
-              <Route path="/" element={<Home/>}>
-                <Route index element={<Home/>}/>
-                {/*<Route path="blogs" element={<Blogs/>}/>*/}
-              </Route>
+              <Route index element={<HomePage/>}/>
+              <Route path="/" element={<HomePage/>}/>
+              <Route path="/category/:categoryId" element={<CategoryPage/>}/>
+              <Route path="/product/:productId" element={<ProductPage/>}/>
             </Routes>
           </div>
           <Navbar/>

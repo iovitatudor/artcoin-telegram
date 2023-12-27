@@ -6,6 +6,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
 import {CategoryType} from "../../types/CategoryType";
+import {Link} from "react-router-dom";
 
 interface IMenuItemProps {
   closeDrawer: () => void;
@@ -32,7 +33,7 @@ const MenuItem: FC<IMenuItemProps> = ({closeDrawer, category}) => {
             category.children && category.children?.length > 0 &&
             category.children.map(child =>
               <ListItemButton sx={{pl: 4}}>
-                <a href="#" className="nav-link">{child.name}</a>
+                <Link to={`/category/${child.id}`} className="nav-link" onClick={closeDrawer}>{child.name}</Link>
               </ListItemButton>
             )
           }

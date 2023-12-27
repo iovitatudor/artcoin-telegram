@@ -44,7 +44,7 @@
   -khtml-transform: translate(-50%, -50%);
 }
 
-.wsk-cp-text .category > span {
+.wsk-cp-text .category > a {
   padding: 12px 30px;
   border: 1px solid #313131;
   background: #212121;
@@ -52,6 +52,7 @@
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
   border-radius: 27px;
   transition: all 0.05s ease-in-out;
+  text-decoration: none;
 
 }
 
@@ -67,6 +68,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   width: 100%;
+
+  a {
+    color: #151e27;
+    text-decoration: none;
+  }
 }
 
 .wsk-cp-text .description-prod p {
@@ -132,9 +138,10 @@ a.buy-btn {
   height: 35px;
   line-height: 35px;
   border-radius: 50%;
-  border: 1px solid #1f7199;
+  border: 2px solid #1f7199;
   transition: all 0.2s ease-in-out;
   color: #1f7199;
+  padding: 3px;
 }
 
 a.buy-btn:hover, a.buy-btn:active, a.buy-btn:focus {
@@ -195,29 +202,54 @@ a.buy-btn:hover, a.buy-btn:active, a.buy-btn:focus {
   margin: 7px 0 25px;
 }
 
+.search-container {
+  width: 90%;
+  display: block;
+  margin: 20px auto 100px auto;
+}
 
+input#search-bar {
+  margin: 0 auto;
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
 
-//@media screen and (max-width: 991px) {
-//  .wsk-cp-product {
-//    margin: 40px auto;
-//  }
-//  .wsk-cp-product .wsk-cp-img {
-//    top: -40px;
-//  }
-//  .wsk-cp-product .wsk-cp-img img {
-//    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-//  }
-//  .wsk-cp-product .wsk-cp-text .category > span {
-//    border-color: #ddd;
-//    box-shadow: none;
-//    padding: 11px 28px;
-//  }
-//  .wsk-cp-product .wsk-cp-text .category {
-//    margin-top: 0px;
-//  }
-//  a.buy-btn {
-//    border-color: #FF9800;
-//    background: #FF9800;
-//    color: #fff;
-//  }
-//}
+  &:focus {
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+
+    &::-webkit-input-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+      opacity: 0;
+    }
+  }
+}
+
+.drawer-top-area {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  button {
+    color: #FFF;
+  }
+}
+
+.search-icon {
+  position: relative;
+  float: right;
+  width: 75px;
+  height: 75px;
+  top: -62px;
+  right: -15px;
+}
+

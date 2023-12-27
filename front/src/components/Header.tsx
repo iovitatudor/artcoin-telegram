@@ -1,11 +1,12 @@
 import React, {FC} from "react";
+import {Link} from "react-router-dom";
 
 const Header: FC = () => {
   return (
     <div className="header-area">
-      <a href="#">
+      <Link to="/">
         <img src="/images/logo.svg" alt=""/>
-      </a>
+      </Link>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Drawer from '@mui/material/Drawer';
 import MenuItem from "./MenuItem";
 import CategoryMock from "../../mocks/CategoryMock";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import {Link} from "react-router-dom";
 
 interface IMenuProps {
   isOpenDrawer: boolean;
@@ -28,17 +28,18 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
           role="presentation"
           style={{background: '#1f7199', height: '100%'}}
         >
-          <a href="#" className='logo'>
+          <Link to="/" className='logo'>
             <img src="/images/logo.svg" alt="" onClick={closeDrawer}/>
-          </a>
+          </Link>
           <Divider sx={{pb: 2}}/>
           {
             CategoryMock.map(category =>
               category.children && category.children.length > 0 ?
-                <MenuItem category={category} closeDrawer={openDrawer}/> :
+                <MenuItem category={category} closeDrawer={closeDrawer}/> :
                 <ListItem key='Menu' disablePadding>
                   <ListItemButton>
-                    <a href="#" className="nav-link">{category.name}</a>
+                    <Link to={`/category/${category.id}`} className="nav-link"
+                          onClick={closeDrawer}>{category.name}</Link>
                   </ListItemButton>
                 </ListItem>
             )

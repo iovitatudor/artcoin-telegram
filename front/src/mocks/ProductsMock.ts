@@ -20,7 +20,7 @@ export const ProductsMock: ProductType[] = [
     seller: SellerMock[0],
   },
   {
-    id: 1,
+    id: 2,
     name: 'Lunchbox Premium',
     description: 'Premium lunch box (with luxury spoon and chopsticks), comes with luxury spoon and chopsticks, Conveniently foldable, Discreet and leak proof - Large capacity',
     price: '100',
@@ -36,7 +36,7 @@ export const ProductsMock: ProductType[] = [
     seller: SellerMock[0],
   },
   {
-    id: 1,
+    id: 3,
     name: 'Cinema Cabaret',
     description: 'Residual tickets for moovies. Please check the residual tickets availability here: www.cineplex.md',
     price: '50',
@@ -52,7 +52,7 @@ export const ProductsMock: ProductType[] = [
     seller: SellerMock[0],
   },
   {
-    id: 1,
+    id: 4,
     name: 'Design & Art',
     description: 'Graphic design services (logo, brand book, corporate identity, etc.)',
     price: '100',

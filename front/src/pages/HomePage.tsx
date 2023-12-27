@@ -3,9 +3,9 @@ import {Container, Grid} from "@mui/material";
 import Product from "../components/Products/Product";
 import {ProductsMock} from "../mocks/ProductsMock";
 
-const Home: FC = () => {
+const HomePage: FC = () => {
   return (
-    <div className="home-area shell">
+    <div className="content-area shell">
       <div className="ban_text">
         <strong>
           <span>artcoin</span>
@@ -35,4 +35,4 @@ const Home: FC = () => {
   );
 }
 
-export default Home;
+export default HomePage;
