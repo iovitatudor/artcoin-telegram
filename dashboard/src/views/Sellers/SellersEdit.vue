@@ -129,12 +129,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchSpecialistById: 'sellers/fetchSellerById',
+      fetchSellerById: 'sellers/fetchSellerById',
       editSeller: 'sellers/editSeller',
     }),
     async initData() {
       const id = this.$route.params.id;
-      const response = await this.fetchSpecialistById(id);
+      const response = await this.fetchSellerById(id);
       this.seller = JSON.parse(JSON.stringify(response.data));
       this.form.email = await this.seller.email;
       this.form.name = await this.seller.name;
@@ -148,7 +148,7 @@ export default {
           if (this.form[field] !== null)
             formData.append(field, this.form[field]);
         }
-        await this.editSeller({id: this.specialist.id, formData});
+        await this.editSeller({id: this.seller.id, formData});
         await this.initData();
       }
       return false;

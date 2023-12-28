@@ -5,11 +5,11 @@
         <div class="card">
           <div class="card-header pb-0">
             <div class="d-flex align-items-center">
-              <p class="mb-0">Edit Category</p>
+              <p class="mb-0">Edit CategoryPage</p>
             </div>
           </div>
           <div class="card-body">
-            <p class="text-uppercase text-sm">Category Information</p>
+            <p class="text-uppercase text-sm">CategoryPage Information</p>
             <argon-alert v-if="alertVisible">
               {{ alert.message }}
             </argon-alert>
@@ -18,7 +18,7 @@
                 <div class="col-md-12">
                   <div class="row mt-1">
                     <div class="col-md-12">
-                      <label class="form-control-label">Parent Category</label>
+                      <label class="form-control-label">Parent CategoryPage</label>
                       <div class="form-group">
                         <select class="form-select" v-model="form.parentId">
                           <option value="1" selected>Without a parent</option>

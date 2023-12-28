@@ -19,7 +19,7 @@
                               href="javascript:;"
                               class="text-secondary font-weight-bold text-xs"
                               data-toggle="tooltip"
-                              data-original-title="Edit Category"
+                              data-original-title="Edit CategoryPage"
                               @click.prevent="removeCategory(category.id)">
                             Delete
                           </a>
@@ -35,7 +35,7 @@
                               href="javascript:;"
                               class="text-secondary font-weight-bold text-xs"
                               data-toggle="tooltip"
-                              data-original-title="Edit Category"
+                              data-original-title="Edit CategoryPage"
                               @click.prevent="removeCategory(child.id)">
                             Delete
                           </a>

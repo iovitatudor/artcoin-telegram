@@ -23,7 +23,7 @@
                     </select>
                   </div>
                   <div class="col-md-6">
-                    <label class="form-control-label">Category</label>
+                    <label class="form-control-label">CategoryPage</label>
                     <select class="form-select" v-model="form.categoryId">
                       <option :value="categories.id" v-for="categories in categories" :key="categories.id">
                         {{ categories.name }}
@@ -128,6 +128,26 @@
                         />
                       </div>
                     </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="top" id="top" v-model="form.top"/>
+                          <label for="top" class="custom-control-label">
+                            Top Sale
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="hot" id="hot" v-model="form.hot"/>
+                          <label for="hot" class="custom-control-label">
+                            Hot Sale
+                          </label>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -177,6 +197,8 @@ export default {
         name: null,
         description: null,
         price: null,
+        top: false,
+        hot: false,
         destination: null,
         availability: null,
         area: null,
@@ -226,6 +248,8 @@ export default {
       this.form.name = this.product.name;
       this.form.description = this.product.description;
       this.form.price = this.product.price;
+      this.form.top = this.product.top ?? false;
+      this.form.hot = this.product.hot ?? false;
       this.form.destination = this.product.destination;
       this.form.availability = this.product.availability;
       this.form.area = this.product.area;
@@ -236,16 +260,12 @@ export default {
       this.form.image = this.product.image;
     },
     async submitForm() {
-      if (this.validateForm()) {
-        const formData = new FormData();
-        for (const field in this.form) {
-          if (this.form[field] !== null)
-            formData.append(field, this.form[field]);
-        }
-        await this.editProduct({id: this.product.id, formData});
-        await this.initData();
+      const formData = new FormData();
+      for (const field in this.form) {
+        formData.append(field, this.form[field]);
       }
-      return false;
+      await this.editProduct({id: this.product.id, formData});
+      await this.initData();
     },
     validateForm() {
       this.errors = [];

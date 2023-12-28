@@ -16,7 +16,7 @@
             target="_blank"
             class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
           >
-            About Us
+            AboutPage Us
           </a>
           <a
             href="javascript:;"
@@ -30,7 +30,7 @@
             target="_blank"
             class="mb-2 text-secondary me-xl-5 me-3 mb-sm-0"
           >
-            Products
+            ProductsMock
           </a>
           <a
             href="javascript:;"

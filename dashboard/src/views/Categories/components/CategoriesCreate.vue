@@ -11,7 +11,7 @@
       <div class="row">
         <form action="" @submit.prevent="submitForm">
           <div class="col-md-12">
-            <label class="form-control-label">Parent Category</label>
+            <label class="form-control-label">Parent CategoryPage</label>
             <div class="form-group">
               <select class="form-select" v-model="form.parentId">
                 <option value="1" selected>Without a parent</option>

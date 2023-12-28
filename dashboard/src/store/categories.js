@@ -32,7 +32,7 @@ export default {
                 await CategoriesApi.create(data);
                 const response = await CategoriesApi.getAll();
                 commit('setCategories', response.data);
-                commit('setAlert', {message: 'Category has been successfully added!', status: 'success'});
+                commit('setAlert', {message: 'CategoryPage has been successfully added!', status: 'success'});
             } catch (e) {
                 commit('setAlert', {message: e.response.data.message, status: 'error'});
                 console.error(e);
@@ -67,7 +67,7 @@ export default {
                 await CategoriesApi.update(data.id, data.formData);
                 const response = await CategoriesApi.getAll();
                 commit('setCategories', response.data);
-                commit('setAlert', {message: 'Category has been successfully edited!', status: 'success'});
+                commit('setAlert', {message: 'CategoryPage has been successfully edited!', status: 'success'});
             } catch (e) {
                 commit('setAlert', {message: e.response.data.message, status: 'error'});
                 console.error(e);

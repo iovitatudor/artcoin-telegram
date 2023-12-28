@@ -21,7 +21,7 @@ import { ProductResource } from "./resources/product.resource";
 import { ProductsService } from "./products.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 
-@ApiTags("Products")
+@ApiTags("ProductsMock")
 @Controller("products")
 export class ProductsController {
   constructor(private readonly productService: ProductsService) {
@@ -40,6 +40,22 @@ export class ProductsController {
   @Get("/category/:categoryId")
   async findAllByCategory(@Param("categoryId") categoryId: string) {
     const products = await this.productService.findAllByCategory(categoryId);
+    return ProductResource.collect(products);
+  }
+
+  @ApiResponse({ status: 200, type: [ProductResource] })
+  @ApiOperation({ summary: "Get all top products" })
+  @Get("/top")
+  async findAllTop() {
+    const products = await this.productService.findAllTop();
+    return ProductResource.collect(products);
+  }
+
+  @ApiResponse({ status: 200, type: [ProductResource] })
+  @ApiOperation({ summary: "Get all hot products" })
+  @Get("/hot")
+  async findAllHot() {
+    const products = await this.productService.findAllHot();
     return ProductResource.collect(products);
   }
 

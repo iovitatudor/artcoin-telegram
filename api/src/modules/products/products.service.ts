@@ -40,6 +40,24 @@ export class ProductsService {
     });
   }
 
+  async findAllTop(): Promise<Product[]> {
+    const products = await this.productRepository.find({
+      order: { id: "DESC" },
+      where: { top: true },
+      relations: { category: true, seller: true }
+    });
+    return products.sort(() => Math.random() - 0.5);
+  }
+
+  async findAllHot(): Promise<Product[]> {
+    const products = await this.productRepository.find({
+      order: { id: "DESC" },
+      where: { hot: true },
+      relations: { category: true, seller: true }
+    });
+    return products.sort(() => Math.random() - 0.5);
+  }
+
   async findOne(id: number): Promise<Product> {
     try {
       return await this.productRepository.findOneOrFail({

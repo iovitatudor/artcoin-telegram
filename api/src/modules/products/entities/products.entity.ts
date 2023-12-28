@@ -57,6 +57,12 @@ export class Product {
   @Column({ type: "varchar", default: "0" })
   price: string;
 
+  @Column({ type: "boolean", default: "0" })
+  top: boolean;
+
+  @Column({ type: "boolean", default: "0" })
+  hot: boolean;
+
   @Column({ type: "varchar", length: 255, default: "image-mock.png" })
   image: string;
 

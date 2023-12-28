@@ -53,7 +53,7 @@ export default {
             try {
                 await SellersApi.update(data.id, data.formData);
                 const response = await SellersApi.getAll();
-                commit('seSellers', response.data);
+                commit('setSellers', response.data);
                 commit('setAlert', {message: 'Seller has been successfully edited!', status: 'success'});
             } catch (e) {
                 commit('setAlert', {message: e.response.data.message, status: 'error'});

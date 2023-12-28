@@ -100,6 +100,25 @@
               <input class="form-control" type="file" @change="uploadFile" ref="file" id="formFile">
             </div>
           </div>
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-check">
+                <br><input class="form-check-input" type="checkbox" name="top" id="top" v-model="form.top"/>
+                <label for="top" class="custom-control-label">
+                  Top Sale
+                </label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check">
+                <br> <input class="form-check-input" type="checkbox" name="hot" id="hot" v-model="form.hot"/>
+                <label for="hot" class="custom-control-label">
+                  Hot Sale
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="col-md-12">
             <div class="alert" role="alert">
               <p class="text-danger" v-for="error in errors" :key="error">
@@ -107,6 +126,7 @@
               </p>
             </div>
           </div>
+
           <div class="col-md-12">
             <div class="form-group">
               <argon-button :fullWidth="true" color="success" variant="gradient">Save</argon-button>
@@ -140,6 +160,8 @@ export default {
         name: null,
         description: null,
         price: null,
+        top: false,
+        hot: false,
         destination: null,
         availability: null,
         area: null,
@@ -194,11 +216,25 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      for (const field in this.form) {
-        if (this.form[field] === null || this.form[field].length < 1) {
-          this.errors.push(`${field} is required!`);
-          return false;
-        }
+      if (this.form.name === null || this.form.name.length < 1) {
+        this.errors.push(`Name is required!`);
+        return false;
+      }
+      if (this.form.price === null || this.form.price.length < 1) {
+        this.errors.push(`Price is required!`);
+        return false;
+      }
+      if (this.form.description === null || this.form.description.length < 1) {
+        this.errors.push(`Description is required!`);
+        return false;
+      }
+      if (this.form.image === null || this.form.image.length < 1) {
+        this.errors.push(`Image is required!`);
+        return false;
+      }
+      if (this.form.sellerId === null || this.form.sellerId.length < 1) {
+        this.errors.push(`Seller is required!`);
+        return false;
       }
       return true;
     },
@@ -207,6 +243,8 @@ export default {
       this.form.name = null;
       this.form.description = null;
       this.form.price = null;
+      this.form.top = false;
+      this.form.hot = false;
       this.form.destination = null;
       this.form.availability = null;
       this.form.area = null;
@@ -223,5 +261,8 @@ export default {
 <style>
 .form-group {
   margin-bottom: 0px !important;
+}
+.card .card-body {
+  overflow-y: scroll;
 }
 </style>

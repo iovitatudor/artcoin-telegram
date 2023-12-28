@@ -39,7 +39,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-12">
             <card
-              title="Products/Services"
+              title="ProductsMock/Services"
               :value="`${products.length}`"
               :percentage="stats.sales.percentage"
               iconClass="ni ni-archive-2"

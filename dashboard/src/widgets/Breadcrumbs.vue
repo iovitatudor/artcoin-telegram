@@ -7,7 +7,7 @@
       <li class="text-sm breadcrumb-item">
         <a
             :class="this.$store.state.isNavFixed ? 'text-dark' : 'text-white'"
-            class="opacity-8" href="#">Home</a>
+            class="opacity-8" href="#">HomePage</a>
       </li>
       <li
           class="text-sm breadcrumb-item active"

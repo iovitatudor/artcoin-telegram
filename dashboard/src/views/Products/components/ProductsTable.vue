@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>{{ currentCategory.name }} : Products/Services ({{ products.length }})</h6>
+      <h6>{{ currentCategory.name }} : ProductsMock/Services ({{ products.length }})</h6>
       <product-create :currentCategory="currentCategory"/>
     </div>
     <div class="card-body px-0 pt-0 pb-2">
@@ -12,7 +12,7 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Product</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Price</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Category</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">CategoryPage</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-4">Seller</th>
             <th class="text-secondary opacity-7"></th>
             <th class="text-secondary opacity-7"></th>

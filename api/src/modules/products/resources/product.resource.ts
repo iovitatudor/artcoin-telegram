@@ -13,7 +13,12 @@ export class ProductResource {
   public name: string;
   @ApiProperty({ example: "A co-working space located..." })
   public description: string;
+  @ApiProperty({ example: 10 })
   public price: string;
+  @ApiProperty({ example: 1 })
+  public top: string;
+  @ApiProperty({ example: 0 })
+  public hot: string;
   @ApiProperty({ example: "image-mock.png" })
   public image: string;
   @ApiProperty({ example: "Co-working hub" })
@@ -30,8 +35,6 @@ export class ProductResource {
   public unit_item: string;
   @ApiProperty({ example: 1 })
   public seats_numbers: string;
-  @ApiProperty({ example: 10 })
-
   @ApiProperty({ example: CategoryResource })
   public category: CategoryResource;
   @ApiProperty({ example: SellersResource })
@@ -42,6 +45,8 @@ export class ProductResource {
     this.name = product.name;
     this.description = product.description;
     this.price = product.price;
+    this.hot = product.hot;
+    this.top = product.top;
     this.image = product.image;
     this.availability = product.availability;
     this.destination = product.destination;
