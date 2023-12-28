@@ -1,12 +1,12 @@
 import React, {FC} from "react";
+import Drawer from '@mui/material/Drawer';
+import MenuItem from "./MenuItem";
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import Drawer from '@mui/material/Drawer';
-import MenuItem from "./MenuItem";
-import CategoryMock from "../../mocks/CategoryMock";
 import {Link} from "react-router-dom";
+import {categoriesApi} from "../../api/categoriesApi";
 
 interface IMenuProps {
   isOpenDrawer: boolean;
@@ -15,6 +15,10 @@ interface IMenuProps {
 }
 
 const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
+  const fetchAllCategories = categoriesApi.useFetchAllCategoriesQuery;
+
+  const {data: categories} = fetchAllCategories();
+
   return (
     <div className="dropdown-menu">
       <Drawer
@@ -33,10 +37,10 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
           </Link>
           <Divider sx={{pb: 2}}/>
           {
-            CategoryMock.map(category =>
+            categories && categories.map(category =>
               category.children && category.children.length > 0 ?
-                <MenuItem category={category} closeDrawer={closeDrawer}/> :
-                <ListItem key='Menu' disablePadding>
+                <MenuItem category={category} closeDrawer={closeDrawer} key={category.id}/> :
+                <ListItem disablePadding key={category.id}>
                   <ListItemButton>
                     <Link to={`/category/${category.id}`} className="nav-link"
                           onClick={closeDrawer}>{category.name}</Link>
@@ -45,6 +49,25 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
             )
           }
           <Divider sx={{pb: 2}}/>
+
+          <ListItem key='about' disablePadding sx={{pt: 2}}>
+            <ListItemButton>
+              <Link to={`/about`} className="nav-link"
+                    onClick={closeDrawer}>About Us</Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem key='become' disablePadding>
+            <ListItemButton>
+              <Link to={`/become-seller`} className="nav-link"
+                    onClick={closeDrawer}>Become a Seller</Link>
+            </ListItemButton>
+          </ListItem>
+          <ListItem key='terms' disablePadding sx={{pb: 2}}>
+            <ListItemButton>
+              <Link to={`/terms-and-conditions`} className="nav-link"
+                    onClick={closeDrawer}>Terms and Conditions</Link>
+            </ListItemButton>
+          </ListItem>
         </Box>
       </Drawer>
     </div>

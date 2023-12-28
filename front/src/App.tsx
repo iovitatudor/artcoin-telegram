@@ -4,10 +4,13 @@ import Navbar from "./components/Nabar";
 import './styles/styles.scss';
 import './styles/effects.scss';
 import {createTheme, ThemeProvider} from '@mui/material';
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import AboutPage from "./pages/AboutPage";
+import TermsConditionsPage from "./pages/TermsConditionsPage";
+import BecomeSellerPage from "./pages/BecomeSellerPage";
 
 // @ts-ignore
 // const tg = window.Telegram.WebApp
@@ -42,6 +45,9 @@ const App = () => {
               <Route path="/" element={<HomePage/>}/>
               <Route path="/category/:categoryId" element={<CategoryPage/>}/>
               <Route path="/product/:productId" element={<ProductPage/>}/>
+              <Route path="/about" element={<AboutPage/>}/>
+              <Route path="/become-seller" element={<BecomeSellerPage/>}/>
+              <Route path="/terms-and-conditions" element={<TermsConditionsPage/>}/>
             </Routes>
           </div>
           <Navbar/>

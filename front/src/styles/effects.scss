@@ -220,7 +220,7 @@ input#search-bar {
   &:focus {
     border: 1px solid #008ABF;
     transition: 0.35s ease;
-    color: #008ABF;
+    color: #000;
 
     &::-webkit-input-placeholder {
       transition: opacity 0.45s ease;

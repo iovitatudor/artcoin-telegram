@@ -13,7 +13,7 @@ const Product: FC<IProductProps> = ({product}) => {
       <div className="wsk-cp-img">
         <Link to={`/product/${product.id}`}>
           <img
-            src={product.image}
+            src={`${process.env.REACT_APP_BACKEND_URL}/${product.image}`}
             alt={product.name} className="img-responsive"/>
         </Link>
       </div>

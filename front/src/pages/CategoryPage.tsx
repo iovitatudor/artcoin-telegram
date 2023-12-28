@@ -1,39 +1,64 @@
 import React, {FC, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import CategoryMock from "../mocks/CategoryMock";
-import {CategoryType} from "../types/CategoryType";
-import {Container, Grid} from "@mui/material";
-import {ProductsMock} from "../mocks/ProductsMock";
 import Product from "../components/Products/Product";
+import Filter from "../components/Filter";
+import {Container, Grid} from "@mui/material";
+import {categoriesApi} from "../api/categoriesApi";
+import {CategoryType} from "../types/CategoryType";
+import {productsApi} from "../api/productsApi";
+import Page404 from "../components/Page404";
 
 const CategoryPage: FC = () => {
   const {categoryId} = useParams();
   const [currentCategory, setCurrentCategory] = useState<CategoryType | null | undefined>();
+  const [filterDrawer, setFilterDrawer] = useState(false);
+  const fetchAllCategories = categoriesApi.useFetchAllCategoriesQuery;
+  const {data: categories} = fetchAllCategories();
+
+  const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
+  const {data: products} = fetchProductsByCategory(categoryId ? parseInt(categoryId) : 0);
 
   useEffect(() => {
-    let category = CategoryMock.find(category => category.id == categoryId);
-    if (!category) {
-      category = CategoryMock
-        .map(category => category.children)
-        .flat()
-        .find(child => child?.id == categoryId) as CategoryType;
+    if (categories) {
+      let category = categories.find(category => category.id.toString() === categoryId);
+      if (!category) {
+        category = categories
+          .map(category => category.children)
+          .flat()
+          .find(child => child?.id.toString() === categoryId) as CategoryType;
+      }
+      setCurrentCategory(category);
     }
-    setCurrentCategory(category);
-  })
+  }, [categories])
+
+  const closeFilterDrawer = () => setFilterDrawer(false);
+  const openFilterDrawer = () => setFilterDrawer(true);
 
   return (
-    <div className="content-area shell">
-      <Container maxWidth={'xl'}>
-        <Grid container>
-          <Grid item xs={12}><h2>{currentCategory?.name}</h2></Grid>
-          {
-            ProductsMock.map(product =>
-              <Grid item xs={12}><Product product={product}/></Grid>
-            )
-          }
-        </Grid>
-      </Container>
-    </div>
+    <>
+      {
+        currentCategory ? <div className="content-area shell">
+            <Filter isOpenDrawer={filterDrawer} closeDrawer={closeFilterDrawer} openDrawer={openFilterDrawer}/>
+            <Container maxWidth={'xl'}>
+              <Grid container>
+                <Grid item xs={12}>
+                  <h2>{currentCategory?.name}</h2>
+                </Grid>
+                {
+                  products && products.map(product =>
+                    <Grid item xs={12} key={product.id}><Product product={product}/></Grid>
+                  )
+                }
+                {
+                  products && products.length === 0 &&
+                    <div className="empty-category">This category is currently empty</div>
+                }
+              </Grid>
+            </Container>
+          </div> :
+          <Page404/>
+      }
+    </>
   );
 }
 

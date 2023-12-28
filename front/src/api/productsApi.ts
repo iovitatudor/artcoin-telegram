@@ -1,0 +1,42 @@
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import {ProductType} from "../types/ProductType";
+
+export const productsApi = createApi({
+  reducerPath: 'productsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_BACKEND_URL}/api`
+  }),
+  tagTypes: ['Product'],
+  endpoints: (build) => ({
+    fetchAllProducts: build.query<ProductType[], void>({
+      query: () => ({
+        url: `/products`,
+      }),
+      providesTags: result => ['Product']
+    }),
+    fetchProductsByCategory: build.query<ProductType[], number>({
+      query: (categoryId: number) => ({
+        url: `/products/category/${categoryId}`,
+      }),
+      providesTags: result => ['Product']
+    }),
+    fetchTopProducts: build.query<ProductType[], void>({
+      query: () => ({
+        url: `/products/top`,
+      }),
+      providesTags: result => ['Product']
+    }),
+    fetchHotProducts: build.query<ProductType[], void>({
+      query: () => ({
+        url: `/products/hot`,
+      }),
+      providesTags: result => ['Product']
+    }),
+    fetchProductById: build.query<ProductType, number>({
+      query: (id) => ({
+        url: `/products/${id}`,
+      }),
+      providesTags: result => ['Product']
+    }),
+  })
+})
