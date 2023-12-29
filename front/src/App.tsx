@@ -11,6 +11,7 @@ import ProductPage from "./pages/ProductPage";
 import AboutPage from "./pages/AboutPage";
 import TermsConditionsPage from "./pages/TermsConditionsPage";
 import BecomeSellerPage from "./pages/BecomeSellerPage";
+import HowToBuy from "./pages/HowToBuy";
 
 // @ts-ignore
 // const tg = window.Telegram.WebApp
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="/product/:productId" element={<ProductPage/>}/>
               <Route path="/about" element={<AboutPage/>}/>
               <Route path="/become-seller" element={<BecomeSellerPage/>}/>
+              <Route path="/how-to-buy" element={<HowToBuy/>}/>
               <Route path="/terms-and-conditions" element={<TermsConditionsPage/>}/>
             </Routes>
           </div>

@@ -31,9 +31,9 @@ const ProductPage: FC = () => {
                   </div>
                   <div className="card-footer">
                     <div className="wcf-left">
-                              <span
-                                className="price">{currentProduct.price} ART <span>per {currentProduct.unit_item}</span>
-                              </span>
+                      <span className="price">{currentProduct.price} ARTCOIN
+                        <span>per {currentProduct.unit_item}</span>
+                      </span>
                     </div>
                     <div className="wcf-right">
                       <a href="#" className="buy-btn"><ShoppingCartIcon/></a>
@@ -45,8 +45,8 @@ const ProductPage: FC = () => {
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Category</Grid>
                             <Grid item xs={7}>
-                                <Link
-                                    to={`/category/${currentProduct.category.id}`}>{currentProduct.category.name}
+                                <Link to={`/category/${currentProduct.category.id}`}>
+                                  {currentProduct.category.name}
                                 </Link>
                             </Grid>
                         </Grid>
@@ -59,42 +59,42 @@ const ProductPage: FC = () => {
                         </Grid>
                     }
                     {
-                      currentProduct.destination &&
+                      currentProduct.destination && currentProduct.destination !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Destination</Grid>
                             <Grid item xs={7}>{currentProduct.destination}</Grid>
                         </Grid>
                     }
                     {
-                      currentProduct.availability &&
+                      currentProduct.availability && currentProduct.availability !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Availability</Grid>
                             <Grid item xs={7}>{currentProduct.availability}</Grid>
                         </Grid>
                     }
                     {
-                      currentProduct.area &&
+                      currentProduct.area && currentProduct.area !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Area</Grid>
                             <Grid item xs={7}>{currentProduct.area}</Grid>
                         </Grid>
                     }
                     {
-                      currentProduct.location &&
+                      currentProduct.location && currentProduct.location !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Location</Grid>
                             <Grid item xs={7}>{currentProduct.location}</Grid>
                         </Grid>
                     }
                     {
-                      currentProduct.facilities_amenities &&
+                      currentProduct.facilities_amenities && currentProduct.facilities_amenities !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Facilities and Amenities</Grid>
                             <Grid item xs={7}>{currentProduct.facilities_amenities}</Grid>
                         </Grid>
                     }
                     {
-                      currentProduct.seats_numbers &&
+                      currentProduct.seats_numbers && currentProduct.seats_numbers !== 'null' &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Seats Numbers</Grid>
                             <Grid item xs={7}>{currentProduct.seats_numbers}</Grid>

@@ -4,7 +4,7 @@ import Product from "../components/Products/Product";
 import Filter from "../components/Filter";
 import Page404 from "../components/Page404";
 import {CategoryType} from "../types/CategoryType";
-import {Container, Grid} from "@mui/material";
+import {Button, Container, Grid} from "@mui/material";
 import {categoriesApi} from "../api/categoriesApi";
 import {productsApi} from "../api/productsApi";
 
@@ -12,11 +12,13 @@ const CategoryPage: FC = () => {
   const {categoryId} = useParams();
   const [currentCategory, setCurrentCategory] = useState<CategoryType | null | undefined>();
   const [filterDrawer, setFilterDrawer] = useState(false);
+  const [filterClassName, setFilterClassName] = useState('');
   const fetchAllCategories = categoriesApi.useFetchAllCategoriesQuery;
   const {data: categories} = fetchAllCategories();
+  const [filterUrl, setFilterUrl] = useState<string>("");
 
   const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
-  const {data: products} = fetchProductsByCategory(categoryId ? parseInt(categoryId) : 0);
+  const {data: products} = fetchProductsByCategory({categoryId: categoryId ? parseInt(categoryId) : 0, filter: filterUrl});
 
   useEffect(() => {
     if (categories) {
@@ -31,14 +33,34 @@ const CategoryPage: FC = () => {
     }
   }, [categories])
 
-  const closeFilterDrawer = () => setFilterDrawer(false);
-  const openFilterDrawer = () => setFilterDrawer(true);
+  const closeFilterDrawer = () => {
+    setFilterDrawer(false);
+    setFilterClassName('')
+  };
+  const openFilterDrawer = () => {
+    setFilterDrawer(true);
+    setFilterClassName('filter-find-products-active')
+  };
+
+  const handleFilterUrl = (url: string) => {
+    setFilterUrl(url);
+  }
+  const handleFilterProducts = () => {
+    console.log(filterUrl);
+  }
 
   return (
     <>
+      <div className={`filter-find-products ${filterClassName}`}>
+        <Button color={"secondary"} onClick={handleFilterProducts}>Find products</Button>
+      </div>
       {
         currentCategory ? <div className="content-area shell">
-            <Filter isOpenDrawer={filterDrawer} closeDrawer={closeFilterDrawer} openDrawer={openFilterDrawer}/>
+            <Filter isOpenDrawer={filterDrawer}
+                    closeDrawer={closeFilterDrawer}
+                    openDrawer={openFilterDrawer}
+                    handleFilterUrl={handleFilterUrl}
+                    categoryId={categoryId}/>
             <Container maxWidth={'xl'}>
               <Grid container>
                 <Grid item xs={12}>

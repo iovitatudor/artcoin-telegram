@@ -40,34 +40,45 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
             categories && categories.map(category =>
               category.children && category.children.length > 0 ?
                 <MenuItem category={category} closeDrawer={closeDrawer} key={category.id}/> :
-                <ListItem disablePadding key={category.id}>
-                  <ListItemButton>
-                    <Link to={`/category/${category.id}`} className="nav-link"
-                          onClick={closeDrawer}>{category.name}</Link>
-                  </ListItemButton>
-                </ListItem>
+                <Link to={`/category/${category.id}`} className="nav-link" onClick={closeDrawer} key={category.id}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      {category.name}
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
             )
           }
           <Divider sx={{pb: 2}}/>
 
-          <ListItem key='about' disablePadding sx={{pt: 2}}>
-            <ListItemButton>
-              <Link to={`/about`} className="nav-link"
-                    onClick={closeDrawer}>About Us</Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem key='become' disablePadding>
-            <ListItemButton>
-              <Link to={`/become-seller`} className="nav-link"
-                    onClick={closeDrawer}>Become a Seller</Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem key='terms' disablePadding sx={{pb: 2}}>
-            <ListItemButton>
-              <Link to={`/terms-and-conditions`} className="nav-link"
-                    onClick={closeDrawer}>Terms and Conditions</Link>
-            </ListItemButton>
-          </ListItem>
+          <Link to={`/about`} className="nav-link" onClick={closeDrawer} key='about'>
+            <ListItem disablePadding sx={{pt: 2}}>
+              <ListItemButton>
+                About Us
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link to={`/become-seller`} className="nav-link" onClick={closeDrawer}>
+            <ListItem key='become' disablePadding>
+              <ListItemButton>
+                Become a Seller
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link to={`/how-to-buy`} className="nav-link" onClick={closeDrawer}>
+            <ListItem key='how-to-buy' disablePadding>
+              <ListItemButton>
+                How to buy
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link to={`/terms-and-conditions`} className="nav-link" onClick={closeDrawer}>
+            <ListItem key='terms' disablePadding sx={{pb: 2}}>
+              <ListItemButton>
+                Terms and Conditions
+              </ListItemButton>
+            </ListItem>
+          </Link>
         </Box>
       </Drawer>
     </div>

@@ -14,11 +14,25 @@ export const productsApi = createApi({
       }),
       providesTags: result => ['Product']
     }),
-    fetchProductsByCategory: build.query<ProductType[], number>({
-      query: (categoryId: number) => ({
-        url: `/products/category/${categoryId}`,
+    searchProducts: build.query<ProductType[], string>({
+      query: (find: string) => ({
+        url: `/products/search?find=${find}`,
       }),
-      providesTags: result => ['Product']
+    }),
+    fetchProductsByCategory: build.query<ProductType[], { categoryId: number, filter?: string }>({
+      query: (data: any) => ({
+        url: `/products/category/${data.categoryId}?filter=${data.filter}`,
+      }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName
+      },
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems)
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        console.log(currentArg)
+        return currentArg !== previousArg
+      },
     }),
     fetchTopProducts: build.query<ProductType[], void>({
       query: () => ({

@@ -16,7 +16,7 @@ const HomePage: FC = () => {
         <strong>
           <span>artcoin</span>
         </strong>
-        <p>the best marketplace in the world!</p>
+        <p>a Sharing Economy tool and a marketplace of underutilized assets</p>
       </div>
       <Container maxWidth={'xl'}>
         <Grid container>

@@ -31,7 +31,7 @@ const Product: FC<IProductProps> = ({product}) => {
         </div>
         <div className="card-footer">
           <div className="wcf-left"><span
-            className="price">{product.price} ART <span>per {product.unit_item}</span></span></div>
+            className="price">{product.price} ARTCOIN <span>per {product.unit_item}</span></span></div>
           <div className="wcf-right"><a href="#" className="buy-btn"><ShoppingCartIcon/></a></div>
         </div>
       </div>

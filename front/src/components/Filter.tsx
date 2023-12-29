@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import {Button} from "@mui/material";
@@ -12,16 +12,30 @@ import Checkbox from '@mui/material/Checkbox';
 import {AvailabilityEnum} from "../enums/AvailabilityEnum";
 import {LocationEnum} from "../enums/LocationEnum";
 import RemoveIcon from '@mui/icons-material/Remove';
+import {productsApi} from "../api/productsApi";
 
 interface IFilterProps {
   isOpenDrawer: boolean;
   closeDrawer: () => void;
   openDrawer: () => void;
+  handleFilterUrl: (url: string) => void;
+  categoryId: string | undefined;
 }
 
-const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer}) => {
+const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handleFilterUrl, categoryId}) => {
   const [selectedAvailability, setSelectedAvailability] = useState<Array<string>>([]);
   const [selectedLocation, setSelectedLocation] = useState<Array<string>>([]);
+  const [priceMin, setPriceMin] = useState<string>("0");
+  const [priceMax, setPriceMax] = useState<string>("1000000");
+  const [filter, setFilter] = useState<string>("");
+
+  const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
+  fetchProductsByCategory({categoryId: categoryId ? 0 : 0, filter});
+
+
+  // useEffect(() => {
+  //   handleFilterUrl(filter)
+  // }, [filter]);
 
   const handleAvailabilityFilterChange = (event: { target: { value: any; checked: any; }; }) => {
     const checkedId = event.target.value;
@@ -39,6 +53,25 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer}) => {
     } else {
       setSelectedLocation(selectedLocation.filter(id => id !== checkedId))
     }
+  }
+
+  const handlePriceMin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceMin(event.target.value);
+    if (priceMin > "0") {
+      createFilterUrl();
+    }
+  }
+
+  const handlePriceMax = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceMax(event.target.value)
+    if (priceMax > "0") {
+      createFilterUrl();
+    }
+  }
+
+  const createFilterUrl = () => {
+    setFilter(`priceMin=${priceMin}&priceMax=${priceMax}`);
+    // handleFilterUrl(filter)
   }
 
   return (
@@ -62,14 +95,13 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer}) => {
               <Button sx={{mt: 2}} onClick={closeDrawer}><CloseIcon/></Button>
             </div>
 
-
             <div className="filter-price">
               <Box sx={{m: 3}}>
                 <label htmlFor=""><span className="filter-label">Price <small>(ArtCoin)</small></span></label>
                 <div className="filter-price-inside">
-                  <input type="number" id="search-bar" placeholder="Min"/>
+                  <input type="number" id="search-bar" placeholder="Min" value={priceMin} onInput={handlePriceMin}/>
                   <RemoveIcon sx={{color: 'white'}}/>
-                  <input type="number" id="search-bar" placeholder="Max"/>
+                  <input type="number" id="search-bar" placeholder="Max" value={priceMax} onInput={handlePriceMax}/>
                 </div>
               </Box>
             </div>

@@ -32,9 +32,11 @@ const MenuItem: FC<IMenuItemProps> = ({closeDrawer, category}) => {
           {
             category.children && category.children?.length > 0 &&
             category.children.map(child =>
-              <ListItemButton sx={{pl: 4}} key={child.id}>
-                <Link to={`/category/${child.id}`} className="nav-link" onClick={closeDrawer}>{child.name}</Link>
-              </ListItemButton>
+              <Link to={`/category/${child.id}`} className="nav-link" onClick={closeDrawer} key={child.id}>
+                <ListItemButton sx={{pl: 4}}>
+                  {child.name}
+                </ListItemButton>
+              </Link>
             )
           }
         </List>
