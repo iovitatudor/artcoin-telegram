@@ -23,15 +23,6 @@ export const productsApi = createApi({
       query: (data: any) => ({
         url: `/products/category/${data.categoryId}?${data.filter}`,
       }),
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
-      },
-      merge: (currentCache, newItems) => {
-        currentCache.push(...newItems)
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
-      },
     }),
     fetchTopProducts: build.query<ProductType[], void>({
       query: () => ({

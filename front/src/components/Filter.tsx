@@ -13,7 +13,7 @@ import {AvailabilityEnum} from "../enums/AvailabilityEnum";
 import {LocationEnum} from "../enums/LocationEnum";
 import RemoveIcon from '@mui/icons-material/Remove';
 import {productsApi} from "../api/productsApi";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 interface IFilterProps {
   isOpenDrawer: boolean;
@@ -35,6 +35,7 @@ let searchURL: string = '';
 
 const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handleFilterUrl, categoryId}) => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [selectedAvailability, setSelectedAvailability] = useState<Array<string>>([]);
   const [selectedLocation, setSelectedLocation] = useState<Array<string>>([]);
   const [priceMin, setPriceMin] = useState<string>("");
@@ -45,6 +46,18 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
   const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
   fetchProductsByCategory({categoryId: categoryId ? 0 : 0, filter});
 
+  useEffect(() => {
+    const urlPriceMin = searchParams.get('priceMin');
+    const urlPriceMax = searchParams.get('priceMax');
+    const urlAvailability = searchParams.get('availability');
+    const urlLocation = searchParams.get('location');
+
+    setPriceMax(urlPriceMax ? urlPriceMax.toString() : '');
+    setPriceMin(urlPriceMin ? urlPriceMin.toString() : '');
+    setSelectedAvailability(urlAvailability ? urlAvailability.split('|') : [])
+    setSelectedLocation(urlLocation ? urlLocation.split('|') : [])
+
+  }, []);
   const createSearchURL = () => {
     searchURL = '';
     if (filterParams?.priceMin) {
@@ -107,10 +120,8 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
   }
 
   const handleFilterProducts = () => {
-    console.log(searchURL);
-    navigate({
-      search: `${searchURL}`
-    });
+    navigate({search: `${searchURL}`});
+    closeDrawer();
   }
 
   return (

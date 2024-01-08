@@ -60,9 +60,6 @@ const CategoryPage: FC = () => {
 
   return (
     <>
-      {/*<div className={`filter-find-products ${filterClassName}`}>*/}
-      {/*  <Button color={"secondary"} onClick={handleFilterProducts}>Find products</Button>*/}
-      {/*</div>*/}
       {
         currentCategory ? <div className="content-area shell">
             <Filter isOpenDrawer={filterDrawer}
