@@ -1,6 +1,6 @@
 import {
   IsNotEmpty,
-  IsNumber,
+  IsNumber, IsNumberString,
   IsOptional,
   IsString,
   MinLength,
@@ -69,10 +69,10 @@ export class UpdateProductDto {
   @ValidateIf((o) => "seats_numbers" in o)
   seats_numbers: string;
 
-  @ApiProperty({ example: 1 })
-  @IsString()
+  @ApiProperty({ example: 10 })
+  @IsNumberString()
   @ValidateIf((o) => "price" in o)
-  price: string;
+  price: any;
 
   @ApiProperty({ example: 0 })
   @IsString()

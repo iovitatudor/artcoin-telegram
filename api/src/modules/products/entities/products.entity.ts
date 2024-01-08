@@ -54,8 +54,8 @@ export class Product {
   @Column({ type: "varchar", default: "0" })
   seats_numbers: string;
 
-  @Column({ type: "varchar", default: "0" })
-  price: string;
+  @Column({ type: "int", default: 0 })
+  price: number;
 
   @Column({ type: "boolean", default: "0" })
   top: boolean;

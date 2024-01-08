@@ -1,6 +1,6 @@
 import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository, UpdateResult} from "typeorm";
+import {Between, In, Repository, UpdateResult} from "typeorm";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {UpdateProductDto} from "./dto/update-product.dto";
 import {Product} from "./entities/products.entity";
@@ -13,15 +13,14 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
     private readonly fileService: FilesService
-  ) {
-  }
+  ) {}
 
-  async create(createProductDto: CreateProductDto, image) {
+  async create(createProductDto: CreateProductDto, image: any) {
     try {
       if (image) {
         createProductDto.image = await this.fileService.createFile(image);
       }
-      return await this.productRepository.save({...createProductDto});
+      return await this.productRepository.save({ ...createProductDto });
     } catch (e) {
       throw new HttpException(e.detail, HttpStatus.UNPROCESSABLE_ENTITY);
     }
@@ -29,9 +28,28 @@ export class ProductsService {
 
   findAll(): Promise<Product[]> {
     return this.productRepository.find({
-      order: {id: "DESC"},
-      relations: {category: true, seller: true}
+      order: { id: "DESC" },
+      relations: { category: true, seller: true }
     });
+  }
+
+  prepareFilterQuery(filterQuery: FilterType) {
+    const where: any = {};
+
+    where.price = Between(
+      filterQuery.priceMin ? parseInt(filterQuery.priceMin) : 0,
+      filterQuery.priceMax ? parseInt(filterQuery.priceMax) : 99999999
+    );
+    console.log(where);
+    if (filterQuery.availability) {
+      const availabilityArray = filterQuery.availability.split(["|"]);
+      where.availability = In([...availabilityArray]);
+    }
+    if (filterQuery.location) {
+      const locationArray = filterQuery.location.split(["|"]);
+      where.location = In([...locationArray]);
+    }
+    return where;
   }
 
   findAllByCategory(
@@ -39,14 +57,8 @@ export class ProductsService {
     filterQuery: FilterType
   ): Promise<Product[]> {
     console.log(filterQuery);
-    const where: any = {};
 
-    if (filterQuery.priceMax) where.price = filterQuery.priceMax;
-    if (filterQuery.availability) where.availability = filterQuery.availability;
-    if (filterQuery.location) where.location = filterQuery.location;
-    if (filterQuery.location) where.location = `LOWER(product.name) LIKE :find OR LOWER(product.description) LIKE :find`
-
-    console.log(filterQuery.location);
+    const where = this.prepareFilterQuery(filterQuery);
 
     return this.productRepository.find({
       order: { id: "DESC" },
@@ -105,7 +117,7 @@ export class ProductsService {
   async update(
     id: number,
     updateProductDto: UpdateProductDto,
-    image
+    image: any
   ): Promise<UpdateResult> {
     try {
       if (image) {

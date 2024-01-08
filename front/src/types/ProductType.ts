@@ -5,7 +5,7 @@ export interface ProductType {
    id: number;
    name: string;
    description: string;
-   price: string;
+   price: number;
    image: string;
    destination: string;
    availability: string;

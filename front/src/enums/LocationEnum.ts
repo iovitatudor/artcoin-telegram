@@ -1,30 +1,30 @@
 export const LocationEnum = [
   {
-    name: 'mediaCor',
+    name: 'MediaCor',
     value: 'MediaCor'
   },
   {
-    name: 'artCor',
+    name: 'ArtCor',
     value: 'ArtCor'
   },
   {
-    name: 'remotely',
+    name: 'Remotely',
     value: 'Remotely'
   },
   {
-    name: 'cineplex',
+    name: 'Cineplex',
     value: 'Cineplex'
   },
   {
-    name: 'genezaArt',
+    name: 'Geneza Art',
     value: 'Geneza Art'
   },
   {
-    name: 'librarius',
+    name: 'Librarius',
     value: 'Librarius'
   },
   {
-    name: 'kaufland',
+    name: 'Kaufland',
     value: 'Kaufland'
   },
 ];

@@ -14,7 +14,7 @@ export class ProductResource {
   @ApiProperty({ example: "A co-working space located..." })
   public description: string;
   @ApiProperty({ example: 10 })
-  public price: string;
+  public price: number;
   @ApiProperty({ example: 1 })
   public top: string;
   @ApiProperty({ example: 0 })

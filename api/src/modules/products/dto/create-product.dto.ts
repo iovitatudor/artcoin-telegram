@@ -1,5 +1,5 @@
 import {
-  IsNotEmpty,
+  IsNotEmpty, IsNumber, IsNumberString,
   IsOptional,
   IsString,
   MinLength,
@@ -69,10 +69,10 @@ export class CreateProductDto {
   seats_numbers: string;
 
   @ApiProperty({ example: 10 })
-  @IsString()
+  @IsNumberString()
   @IsNotEmpty()
   @ValidateIf((o) => "price" in o)
-  price: string;
+  price: any;
 
   @ApiProperty({ example: 0 })
   @IsString()

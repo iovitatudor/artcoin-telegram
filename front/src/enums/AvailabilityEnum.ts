@@ -1,14 +1,14 @@
 export const AvailabilityEnum = [
   {
     value: "Individual",
-    name: "individual",
+    name: "Individual",
   },
   {
     value: "Weekdays, 09:00 - 18:00",
-    name: "weekdays",
+    name: "Weekdays, 09:00 - 18:00",
   },
   {
     value: "Working days, 09:00 - 18:00",
-    name: "workingDays",
+    name: "Working days, 09:00 - 18:00",
   }
 ]
