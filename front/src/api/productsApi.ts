@@ -21,7 +21,7 @@ export const productsApi = createApi({
     }),
     fetchProductsByCategory: build.query<ProductType[], { categoryId: number, filter?: string }>({
       query: (data: any) => ({
-        url: `/products/category/${data.categoryId}?filter=${data.filter}`,
+        url: `/products/category/${data.categoryId}?${data.filter}`,
       }),
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName
@@ -30,7 +30,6 @@ export const productsApi = createApi({
         currentCache.push(...newItems)
       },
       forceRefetch({ currentArg, previousArg }) {
-        console.log(currentArg)
         return currentArg !== previousArg
       },
     }),

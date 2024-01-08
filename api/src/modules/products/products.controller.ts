@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  HttpCode, UseInterceptors, UploadedFile
+  HttpCode, UseInterceptors, UploadedFile, Query
 } from "@nestjs/common";
 import {
   ApiConsumes,
@@ -20,6 +20,7 @@ import { UpdateProductDto } from "./dto/update-product.dto";
 import { ProductResource } from "./resources/product.resource";
 import { ProductsService } from "./products.service";
 import { FileInterceptor } from "@nestjs/platform-express";
+import {FilterType} from "./types/filterType";
 
 @ApiTags("ProductsMock")
 @Controller("products")
@@ -38,8 +39,17 @@ export class ProductsController {
   @ApiResponse({ status: 200, type: [ProductResource] })
   @ApiOperation({ summary: "Get all products" })
   @Get("/category/:categoryId")
-  async findAllByCategory(@Param("categoryId") categoryId: string) {
-    const products = await this.productService.findAllByCategory(categoryId);
+  async findAllByCategory(@Param("categoryId") categoryId: string, @Query() query: FilterType) {
+    const products = await this.productService.findAllByCategory(categoryId, query);
+    return ProductResource.collect(products);
+  }
+
+  @ApiResponse({ status: 200, type: [ProductResource] })
+  @ApiOperation({ summary: "Search products" })
+  @Get("/search")
+  async search(@Query() query: any) {
+    const find = query.find;
+    const products = await this.productService.search(find);
     return ProductResource.collect(products);
   }
 

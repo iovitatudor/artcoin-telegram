@@ -13,6 +13,7 @@ import {AvailabilityEnum} from "../enums/AvailabilityEnum";
 import {LocationEnum} from "../enums/LocationEnum";
 import RemoveIcon from '@mui/icons-material/Remove';
 import {productsApi} from "../api/productsApi";
+import {useNavigate} from "react-router-dom";
 
 interface IFilterProps {
   isOpenDrawer: boolean;
@@ -22,56 +23,94 @@ interface IFilterProps {
   categoryId: string | undefined;
 }
 
+interface IFilterOptions {
+  priceMin?: any,
+  priceMax?: any,
+  availability?: any,
+  location?: any,
+}
+
+const filterParams: IFilterOptions = {};
+let searchURL: string = '';
+
 const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handleFilterUrl, categoryId}) => {
+  const navigate = useNavigate();
   const [selectedAvailability, setSelectedAvailability] = useState<Array<string>>([]);
   const [selectedLocation, setSelectedLocation] = useState<Array<string>>([]);
-  const [priceMin, setPriceMin] = useState<string>("0");
-  const [priceMax, setPriceMax] = useState<string>("1000000");
+  const [priceMin, setPriceMin] = useState<string>("");
+  const [priceMax, setPriceMax] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
+  const [filterClassName, setFilterClassName] = useState('');
 
   const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
   fetchProductsByCategory({categoryId: categoryId ? 0 : 0, filter});
 
-
-  // useEffect(() => {
-  //   handleFilterUrl(filter)
-  // }, [filter]);
+  const createSearchURL = () => {
+    searchURL = '';
+    if (filterParams?.priceMin) {
+      searchURL = `priceMin=${filterParams.priceMin}&`;
+    }
+    if (filterParams?.priceMax) {
+      searchURL = `${searchURL}priceMax=${filterParams.priceMax}&`;
+    }
+    if (filterParams?.availability) {
+      const availabilityOptions = filterParams?.availability.join('|');
+      searchURL = `${searchURL}availability=${availabilityOptions}&`;
+    }
+    if (filterParams?.location) {
+      const locationOptions = filterParams?.location.join('|');
+      searchURL = `${searchURL}location=${locationOptions}`;
+    }
+    setFilterClassName('filter-find-products-active');
+  }
 
   const handleAvailabilityFilterChange = (event: { target: { value: any; checked: any; }; }) => {
     const checkedId = event.target.value;
+    let availabilityItems: any[] = [];
+
     if (event.target.checked) {
       setSelectedAvailability([...selectedAvailability, checkedId])
+      availabilityItems = [...selectedAvailability, checkedId];
     } else {
       setSelectedAvailability(selectedAvailability.filter(id => id !== checkedId))
+      availabilityItems = availabilityItems.filter(id => id !== checkedId);
     }
+    filterParams.availability = availabilityItems;
+    createSearchURL();
   }
 
   const handleLocationFilterChange = (event: { target: { value: any; checked: any; }; }) => {
     const checkedId = event.target.value;
+    let locationItems: any[] = [];
+
     if (event.target.checked) {
-      setSelectedLocation([...selectedLocation, checkedId])
+      setSelectedLocation([...selectedLocation, checkedId]);
+      locationItems = [...selectedLocation, checkedId];
     } else {
-      setSelectedLocation(selectedLocation.filter(id => id !== checkedId))
+      setSelectedLocation(selectedLocation.filter(id => id !== checkedId));
+      locationItems = locationItems.filter(id => id !== checkedId);
     }
+    filterParams.location = locationItems;
+    createSearchURL();
   }
 
   const handlePriceMin = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPriceMin(event.target.value);
-    if (priceMin > "0") {
-      createFilterUrl();
-    }
+    filterParams.priceMin = event.target.value;
+    createSearchURL();
   }
 
   const handlePriceMax = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPriceMax(event.target.value)
-    if (priceMax > "0") {
-      createFilterUrl();
-    }
+    setPriceMax(event.target.value);
+    filterParams.priceMax = event.target.value;
+    createSearchURL();
   }
 
-  const createFilterUrl = () => {
-    setFilter(`priceMin=${priceMin}&priceMax=${priceMax}`);
-    // handleFilterUrl(filter)
+  const handleFilterProducts = () => {
+    console.log(searchURL);
+    navigate({
+      search: `${searchURL}`
+    });
   }
 
   return (
@@ -94,12 +133,11 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
             <div className="drawer-top-area">
               <Button sx={{mt: 2}} onClick={closeDrawer}><CloseIcon/></Button>
             </div>
-
             <div className="filter-price">
               <Box sx={{m: 3}}>
                 <label htmlFor=""><span className="filter-label">Price <small>(ArtCoin)</small></span></label>
                 <div className="filter-price-inside">
-                  <input type="number" id="search-bar" placeholder="Min" value={priceMin} onInput={handlePriceMin}/>
+                  <input type="number" id="search-bar" placeholder="Min" value={priceMin} onChange={handlePriceMin}/>
                   <RemoveIcon sx={{color: 'white'}}/>
                   <input type="number" id="search-bar" placeholder="Max" value={priceMax} onInput={handlePriceMax}/>
                 </div>
@@ -150,11 +188,13 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
                 }
               </FormGroup>
             </FormControl>
+            <div className={`filter-find-products ${filterClassName}`}>
+              <Button color={"secondary"} onClick={handleFilterProducts}>Show products</Button>
+            </div>
           </Box>
         </Drawer>
       </div>
     </>
-
   );
 }
 

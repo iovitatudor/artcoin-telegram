@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import Product from "../components/Products/Product";
 import Filter from "../components/Filter";
 import Page404 from "../components/Page404";
@@ -9,6 +9,8 @@ import {categoriesApi} from "../api/categoriesApi";
 import {productsApi} from "../api/productsApi";
 
 const CategoryPage: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {categoryId} = useParams();
   const [currentCategory, setCurrentCategory] = useState<CategoryType | null | undefined>();
   const [filterDrawer, setFilterDrawer] = useState(false);
@@ -18,7 +20,14 @@ const CategoryPage: FC = () => {
   const [filterUrl, setFilterUrl] = useState<string>("");
 
   const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
-  const {data: products} = fetchProductsByCategory({categoryId: categoryId ? parseInt(categoryId) : 0, filter: filterUrl});
+  const {data: products} = fetchProductsByCategory({
+    categoryId: categoryId ? parseInt(categoryId) : 0,
+    filter: filterUrl
+  });
+
+  useEffect(() => {
+    setFilterUrl(searchParams.toString());
+  }, [searchParams.toString()]);
 
   useEffect(() => {
     if (categories) {
@@ -51,9 +60,9 @@ const CategoryPage: FC = () => {
 
   return (
     <>
-      <div className={`filter-find-products ${filterClassName}`}>
-        <Button color={"secondary"} onClick={handleFilterProducts}>Find products</Button>
-      </div>
+      {/*<div className={`filter-find-products ${filterClassName}`}>*/}
+      {/*  <Button color={"secondary"} onClick={handleFilterProducts}>Find products</Button>*/}
+      {/*</div>*/}
       {
         currentCategory ? <div className="content-area shell">
             <Filter isOpenDrawer={filterDrawer}
