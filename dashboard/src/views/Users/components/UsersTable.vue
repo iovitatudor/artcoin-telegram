@@ -14,8 +14,8 @@
             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Username
             </th>
-            <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              Phone
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+              Date of creation
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Status
@@ -33,16 +33,10 @@
             </td>
             <td>
               <div class="d-flex px-2 py-1">
-                <div>
+                <div style="margin-right: 10px">
                   <img :src="`${backEndUrl}/${user.avatar}`"
                        class="avatar avatar-sm me-3"
                        alt="user1"
-                       v-if="user.avatar !== 'avatar-mock.png'"
-                  />
-                  <img :src="user.avatar_link"
-                       class="avatar avatar-sm me-3"
-                       alt="user1"
-                       v-else
                   />
                 </div>
                 <div class="d-flex flex-column justify-content-center">
@@ -54,8 +48,8 @@
             <td class="align-middle text-left">
               <span class="text-secondary text-xs font-weight-bold">{{ user.username }}</span>
             </td>
-            <td class="align-middle text-left">
-              <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>
+            <td class="align-middle text-center">
+              <span class="text-secondary text-xs font-weight-bold">{{ formatDate(new Date(user.created)) }}</span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>
@@ -109,6 +103,18 @@ export default {
       removeUser: "users/removeUser",
       fetchUsers: "users/fetchUsers",
     }),
+    formatDate(date = new Date()) {
+      const year = date.toLocaleString('default', {year: 'numeric'});
+      const month = date.toLocaleString('default', {
+        month: '2-digit',
+      });
+      const day = date.toLocaleString('default', {day: '2-digit'});
+      const hour = date.toLocaleString('default', {hour: '2-digit'});
+      const minutes = date.toLocaleString('default', {minute: '2-digit'});
+
+      return [year, month, day].join('-') + "  " + [hour, minutes].join(':');
+    }
   }
-};
+}
+;
 </script>

@@ -33,6 +33,7 @@ export class CreateSellerDto {
   avatar: string;
 
   @ApiProperty({ example: "qwerQWER1234%$" })
+  @ValidateIf((o) => "password" in o)
   @IsNotEmpty()
   @Matches(passwordRegEx, {
     message: `Password must contain Minimum 8 and maximum 20 characters, 

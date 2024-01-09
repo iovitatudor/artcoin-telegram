@@ -12,12 +12,15 @@ export class SellersResource {
   public username: string;
   @ApiProperty({ example: "johny-avatar.png" })
   public avatar: string;
+  @ApiProperty({ example: "10.12.23" })
+  public created: Date;
 
   public constructor(specialist: Seller) {
     this.id = specialist.id;
     this.name = specialist.name;
     this.username = specialist.username;
     this.avatar = specialist.avatar;
+    this.created = specialist.created_at;
   }
 
   public static collect(specialists: any[]): SellersResource[] {

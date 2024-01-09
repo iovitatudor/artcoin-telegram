@@ -11,7 +11,10 @@
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+              Date of creation
+            </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Status
             </th>
@@ -28,7 +31,7 @@
             </td>
             <td>
               <div class="d-flex px-2 py-1">
-                <div>
+                <div style="margin-right: 15px">
                   <img :src="`${backEndUrl}/${seller.avatar}`"
                        class="avatar avatar-md"
                        alt="user1"
@@ -36,13 +39,15 @@
                 </div>
                 <div class="d-flex flex-column justify-content-center">
                   <h6 class="mb-0 text-sm">{{ seller.name }}</h6>
-
                 </div>
               </div>
             </td>
             <td class="align-middle">
               <span class="text-secondary text-xs font-weight-bold"> <p
-                  class="text-xs text-secondary mb-0">{{ seller.email }}</p></span>
+                  class="text-xs text-secondary mb-0">{{ seller.username }}</p></span>
+            </td>
+            <td class="align-middle text-center">
+              <span class="text-secondary text-xs font-weight-bold">{{ formatDate(new Date(seller.created)) }}</span>
             </td>
             <td class="align-middle text-center text-sm">
               <span class="badge badge-sm bg-gradient-success">Online</span>
@@ -97,6 +102,17 @@ export default {
     ...mapActions({
       removeSeller: "sellers/removeSeller",
     }),
+    formatDate(date = new Date()) {
+      const year = date.toLocaleString('default', {year: 'numeric'});
+      const month = date.toLocaleString('default', {
+        month: '2-digit',
+      });
+      const day = date.toLocaleString('default', {day: '2-digit'});
+      const hour = date.toLocaleString('default', {hour: '2-digit'});
+      const minutes = date.toLocaleString('default', {minute: '2-digit'});
+
+      return [year, month, day].join('-') + "  " + [hour, minutes].join(':');
+    }
   }
 };
 </script>

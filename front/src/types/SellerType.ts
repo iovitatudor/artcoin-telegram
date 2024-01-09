@@ -1,6 +1,7 @@
 export interface SellerType {
-   id: number;
-   name: string;
-   email: string;
-   avatar: string;
+  id: number;
+  name: string;
+  username: string;
+  avatar: string;
+  created?: Date;
 }

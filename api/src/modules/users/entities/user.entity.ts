@@ -15,7 +15,7 @@ export class User {
   @Column({ type: "varchar", length: 40, nullable: true })
   phone: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", nullable: true })
   password: string;
 
   @Column({ type: "varchar", length: 255, default: "avatar-mock.png" })

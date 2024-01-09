@@ -36,7 +36,7 @@ export class CrudSellersService {
   }
 
   findAll(): Promise<Seller[]> {
-    return this.specialistRepository.find();
+    return this.specialistRepository.find({ order: { id: "DESC" } });
   }
 
   async findOne(id: number): Promise<Seller> {

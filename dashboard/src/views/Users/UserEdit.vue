@@ -18,18 +18,18 @@
                 <div class="col-md-8">
                   <div class="row mt-1">
                     <div class="col-md-4">
+                      <label for="example-text-input" class="form-control-label">Username</label>
+                      <argon-input type="text"
+                                   name="username"
+                                   :value="this.user.username"
+                                   @input="form.username = $event.target.value"/>
+                    </div>
+                    <div class="col-md-4">
                       <label for="example-text-input" class="form-control-label">Name</label>
                       <argon-input type="text"
                                    name="name"
                                    :value="this.user.name"
                                    @input="form.name = $event.target.value"/>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="example-text-input" class="form-control-label">Email</label>
-                      <argon-input type="email"
-                                   name="email"
-                                   :value="this.user.username"
-                                   @input="form.email = $event.target.value"/>
                     </div>
                     <div class="col-md-4">
                       <label for="example-text-input" class="form-control-label">Phone</label>
@@ -108,7 +108,7 @@ export default {
       user: null,
       form: {
         name: null,
-        email: null,
+        username: null,
         phone: null,
         avatar: null,
         password: null,
@@ -145,7 +145,7 @@ export default {
       const response = await this.fetchUserById(id);
       this.user = response.data;
       this.form.name = this.user.name;
-      this.form.email = this.user.email;
+      this.form.username = this.user.username;
       this.form.avatar = this.user.avatar;
     },
     async submitForm() {
@@ -165,7 +165,6 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
       for (const field in this.form) {
@@ -177,10 +176,6 @@ export default {
             return false;
           }
         }
-      }
-      if (!this.form.email.match(emailValidRegex)) {
-        this.errors.push(`invalid email address!`);
-        return false;
       }
       if (this.form.password) {
         if (!this.form.password.match(passwordValidRegex)) {
@@ -194,21 +189,6 @@ export default {
       }
       return true;
     },
-    resetForm() {
-      this.form.name = null;
-      this.form.email = null;
-      this.form.phone = null;
-      this.form.birthdate = null;
-      this.form.gender = "male";
-      this.form.avatar = null;
-      this.form.password = null;
-      this.form.passwordConfirmation = null;
-    },
-    getDateTime(datetime) {
-      const dt = new Date(datetime);
-      dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-      return dt.toISOString().slice(0, 16);
-    }
   }
 }
 ;

@@ -18,18 +18,18 @@
                 <div class="col-md-8">
                   <div class="row mt-1">
                     <div class="col-md-6">
+                      <label for="example-text-input" class="form-control-label">Username</label>
+                      <argon-input type="text"
+                                   name="username"
+                                   :value="this.seller.username"
+                                   @input="form.username = $event.target.value"/>
+                    </div>
+                    <div class="col-md-6">
                       <label for="example-text-input" class="form-control-label">Name</label>
                       <argon-input type="text"
                                    name="name"
                                    :value="this.seller.name"
                                    @input="form.name = $event.target.value"/>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="example-text-input" class="form-control-label">Email</label>
-                      <argon-input type="email"
-                                   name="email"
-                                   :value="this.seller.email"
-                                   @input="form.email = $event.target.value"/>
                     </div>
                   </div>
                   <div class="row  mt-5">
@@ -101,7 +101,7 @@ export default {
       seller: null,
       form: {
         name: null,
-        email: null,
+        username: null,
         avatar: null,
         password: null,
         passwordConfirmation: null,
@@ -136,7 +136,7 @@ export default {
       const id = this.$route.params.id;
       const response = await this.fetchSellerById(id);
       this.seller = JSON.parse(JSON.stringify(response.data));
-      this.form.email = await this.seller.email;
+      this.form.username = await this.seller.username;
       this.form.name = await this.seller.name;
       this.form.avatar = await this.seller.avatar;
 
@@ -170,14 +170,6 @@ export default {
       }
 
       return true;
-    },
-    resetForm() {
-      this.form.name = null;
-      this.form.email = null;
-      this.form.phone = null;
-      this.form.avatar = null;
-      this.form.password = null;
-      this.form.passwordConfirmation = null;
     },
   }
 }

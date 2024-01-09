@@ -11,18 +11,18 @@
       <div class="row">
         <form action="" @submit.prevent="createUser">
           <div class="col-md-12">
+            <div class="col-md-12">
+              <label for="example-text-input" class="form-control-label">Username</label>
+              <argon-input type="text"
+                           name="username"
+                           :value="form.username"
+                           @input="form.username = $event.target.value"/>
+            </div>
             <label for="example-text-input" class="form-control-label">Name</label>
             <argon-input type="text"
                          name="name"
                          :value="form.name"
                          @input="form.name = $event.target.value"/>
-          </div>
-          <div class="col-md-12">
-            <label for="example-text-input" class="form-control-label">Email</label>
-            <argon-input type="text"
-                         name="email"
-                         :value="form.email"
-                         @input="form.email = $event.target.value"/>
           </div>
           <div class="col-md-12">
             <label for="example-text-input" class="form-control-label">Phone</label>
@@ -82,11 +82,11 @@ export default {
       errors: [],
       form: {
         name: null,
-        email: null,
+        username: null,
         phone: null,
         avatar: null,
-        password: null,
-        passwordConfirmation: null,
+        password: "aaBBccDD12!@",
+        passwordConfirmation: "aaBBccDD12!@",
       }
     }
   },
@@ -119,7 +119,9 @@ export default {
       if (this.validateForm()) {
         const formData = new FormData();
         for (const field in this.form) {
-          formData.append(field, this.form[field]);
+          if (this.form[field]) {
+            formData.append(field, this.form[field]);
+          }
         }
         await this.addUser(formData);
       }
@@ -130,19 +132,17 @@ export default {
     },
     validateForm() {
       this.errors = [];
-      const emailValidRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
       const passwordValidRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-      for (const field in this.form) {
-        if (this.form[field] === null || this.form[field].length < 1) {
-          this.errors.push(`${field} is required!`);
-          return false;
-        }
-      }
-      if (!this.form.email.match(emailValidRegex)) {
-        this.errors.push(`invalid email address!`);
-        return false;
-      }
+      // if (this.form.name === null || this.form.name.length < 1) {
+      //   this.errors.push(`Name is required!`);
+      //   return false;
+      // }
+      //
+      // if (this.form.username === null || this.username.length < 1) {
+      //   this.errors.push(`User is required!`);
+      //   return false;
+      // }
 
       if (!this.form.password.match(passwordValidRegex)) {
         this.errors.push(`Password must contain Minimum 8 and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character`);
@@ -156,7 +156,7 @@ export default {
     },
     resetForm() {
       this.form.name = null;
-      this.form.email = null;
+      this.form.username = null;
       this.form.phone = null;
       this.form.avatar = null;
       this.form.password = null;

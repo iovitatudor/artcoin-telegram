@@ -18,6 +18,7 @@ export class CrudUsersService {
     if (avatar) {
       createUserDto.avatar = await this.fileService.createFile(avatar);
     }
+    console.log(createUserDto);
     if (createUserDto.password) {
       createUserDto.password = await bcrypt.hash(createUserDto.password, 5);
     }
@@ -25,7 +26,7 @@ export class CrudUsersService {
   }
 
   findAllUser(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({ order: { id: "DESC" } });
   }
 
   async findUser(id: number): Promise<User> {

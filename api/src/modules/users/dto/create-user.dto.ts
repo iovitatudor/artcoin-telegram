@@ -36,7 +36,7 @@ export class CreateUserDto {
   })
   @ValidateIf((o) => "avatar" in o)
   @IsOptional()
-  avatar: string;
+  avatar: string = "mock-user-picture.png";
 
   @ApiProperty({ example: "qwerQWER1234%$" })
   @IsNotEmpty()
@@ -47,5 +47,7 @@ export class CreateUserDto {
     one number and 
     one special character`
   })
+  @IsOptional()
+  @ValidateIf((o) => "password" in o)
   password: string;
 }

@@ -55,7 +55,7 @@ const ProductPage: FC = () => {
                       currentProduct.seller &&
                         <Grid container className="card-properties-item">
                             <Grid item xs={5}>Seller</Grid>
-                            <Grid item xs={7}>{currentProduct.seller.name}</Grid>
+                            <Grid item xs={7}>{currentProduct.seller.username}</Grid>
                         </Grid>
                     }
                     {

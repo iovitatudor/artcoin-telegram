@@ -14,6 +14,8 @@ export class UsersResource {
   public phone: string;
   @ApiProperty({ example: "johny-avatar.png" })
   public avatar: string;
+  @ApiProperty({ example: "10.12.23" })
+  public created: Date;
 
   public constructor(user: User) {
     this.id = user.id;
@@ -21,6 +23,7 @@ export class UsersResource {
     this.username = user.username;
     this.phone = user.phone;
     this.avatar = user.avatar;
+    this.created = user.created_at;
   }
 
   public static collect(users: any[]): UsersResource[] {
