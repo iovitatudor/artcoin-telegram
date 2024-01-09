@@ -23,7 +23,7 @@ const HomePage: FC = () => {
           <Grid item xs={12}><h2>Top Sales</h2></Grid>
           {
             topProducts && topProducts.map(product =>
-              <Grid item xs={12} md={4} key={product.id}><Product product={product}/></Grid>
+              <Grid item xs={12} md={12} key={product.id}><Product product={product}/></Grid>
             )
           }
         </Grid>
@@ -31,7 +31,7 @@ const HomePage: FC = () => {
           <Grid item xs={12}><h2>Hot Sales</h2></Grid>
           {
             hotProducts && hotProducts.map(product =>
-              <Grid item xs={12} md={4} key={product.id}><Product product={product}/></Grid>
+              <Grid item xs={12} md={12} key={product.id}><Product product={product}/></Grid>
             )
           }
         </Grid>

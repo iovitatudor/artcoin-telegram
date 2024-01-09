@@ -11,6 +11,7 @@ import {productsApi} from "../api/productsApi";
 const CategoryPage: FC = () => {
   const [searchParams] = useSearchParams();
   const {categoryId} = useParams();
+  const [ready, setReady] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<CategoryType | null | undefined>();
   const [filterDrawer, setFilterDrawer] = useState(false);
   const [filterUrl, setFilterUrl] = useState<string>("");
@@ -38,6 +39,7 @@ const CategoryPage: FC = () => {
           .find(child => child?.id.toString() === categoryId) as CategoryType;
       }
       setCurrentCategory(category);
+      setReady(true);
     }
   }, [categories])
 
@@ -68,7 +70,7 @@ const CategoryPage: FC = () => {
                 </Grid>
                 {
                   products && products.map(product =>
-                    <Grid item xs={12} md={4} key={product.id}><Product product={product}/></Grid>
+                    <Grid item xs={12} md={12} key={product.id}><Product product={product}/></Grid>
                   )
                 }
                 {
@@ -78,7 +80,11 @@ const CategoryPage: FC = () => {
               </Grid>
             </Container>
           </div> :
-          <Page404/>
+         <div>
+           {
+             ready && <Page404/>
+           }
+         </div>
       }
     </>
   );

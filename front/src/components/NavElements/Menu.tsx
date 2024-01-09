@@ -37,7 +37,7 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
           </Link>
           <Divider sx={{pb: 2}}/>
 
-          <div className="menu-greeting">Hi, <b>@iovitatudor</b></div>
+          {/*<div className="menu-greeting">Hi, <b>@iovitatudor</b></div>*/}
 
           {
             categories && categories.map(category =>

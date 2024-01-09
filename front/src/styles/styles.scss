@@ -15,9 +15,14 @@ body {
   background: #ddd;
   width: 100%;
 }
+.App{
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
 
 .wrapper {
-  width: 100%;
+  max-width: 600px;
   overflow: hidden;
   padding-bottom: 100px;
   position: relative;

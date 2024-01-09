@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Navbar from "./components/Nabar";
 import './styles/styles.scss';
 import './styles/effects.scss';
-// import './styles/telegram.scss';
+import './styles/telegram.scss';
 import {createTheme, ThemeProvider} from '@mui/material';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -16,7 +16,7 @@ import HowToBuy from "./pages/HowToBuy";
 import {BrowserView, MobileView} from 'react-device-detect';
 
 // @ts-ignore
-// const tg = window.Telegram.WebApp
+const tg = window.Telegram.WebApp
 
 const theme = createTheme({
   typography: {
