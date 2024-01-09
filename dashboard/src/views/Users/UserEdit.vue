@@ -28,7 +28,7 @@
                       <label for="example-text-input" class="form-control-label">Email</label>
                       <argon-input type="email"
                                    name="email"
-                                   :value="this.user.email"
+                                   :value="this.user.username"
                                    @input="form.email = $event.target.value"/>
                     </div>
                     <div class="col-md-4">

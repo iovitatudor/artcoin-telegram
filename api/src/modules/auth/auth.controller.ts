@@ -3,7 +3,7 @@ import {
   Controller,
   Post,
   UsePipes,
-  ValidationPipe,
+  ValidationPipe
 } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
@@ -19,7 +19,9 @@ export class AuthController {
   @ApiResponse({ status: 200, description: "Application Token" })
   @UsePipes(ValidationPipe)
   @Post("/register")
-  public async register(@Body() registerAuthDto: RegisterAuthDto): Promise<object> {
+  public async register(
+    @Body() registerAuthDto: RegisterAuthDto
+  ): Promise<object> {
     return await this.authService.register(registerAuthDto);
   }
 

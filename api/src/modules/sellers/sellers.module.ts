@@ -9,12 +9,7 @@ import { ValidationSellersService } from "./services/validation-sellers.service"
 @Module({
   imports: [TypeOrmModule.forFeature([Seller])],
   controllers: [SellersController],
-  providers: [
-    CrudSellersService,
-    ValidationSellersService,
-    FilesService
-  ],
+  providers: [CrudSellersService, ValidationSellersService, FilesService],
   exports: [CrudSellersService, ValidationSellersService]
 })
-export class SellersModule {
-}
+export class SellersModule {}

@@ -8,14 +8,14 @@ import {
   Delete,
   HttpCode,
   UseInterceptors,
-  UploadedFile,
+  UploadedFile
 } from "@nestjs/common";
 import {
   ApiConsumes,
   ApiNoContentResponse,
   ApiOperation,
   ApiResponse,
-  ApiTags,
+  ApiTags
 } from "@nestjs/swagger";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { CrudUsersService } from "./services/crud-users.service";
@@ -29,9 +29,8 @@ import { ValidationUsersService } from "./services/validation-users.service";
 export class UsersController {
   constructor(
     private readonly crudUsersService: CrudUsersService,
-    private readonly validationUsersService: ValidationUsersService,
-  ) {
-  }
+    private readonly validationUsersService: ValidationUsersService
+  ) {}
 
   @ApiResponse({ status: 200, type: [UsersResource] })
   @ApiOperation({ summary: "Get all users" })
@@ -55,7 +54,7 @@ export class UsersController {
   @ApiOperation({ summary: "Create user" })
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @UploadedFile() avatar) {
-    await this.validationUsersService.validateEmail(createUserDto.email);
+    await this.validationUsersService.validateUsername(createUserDto.username);
     const user = await this.crudUsersService.createUser(createUserDto, avatar);
     return new UsersResource(user);
   }
@@ -68,9 +67,12 @@ export class UsersController {
   async update(
     @Param("id") id: string,
     @Body() updateUserDto: UpdateUserDto,
-    @UploadedFile() avatar,
+    @UploadedFile() avatar
   ) {
-    await this.validationUsersService.validateEmail(updateUserDto.email, +id);
+    await this.validationUsersService.validateUsername(
+      updateUserDto.username,
+      +id
+    );
     await this.crudUsersService.updateUser(+id, updateUserDto, avatar);
     const user = await this.crudUsersService.findUser(+id);
     return new UsersResource(user);
@@ -78,12 +80,13 @@ export class UsersController {
 
   @HttpCode(204)
   @ApiNoContentResponse({
-    description: "Item for the given id have been deleted",
+    description: "Item for the given id have been deleted"
   })
   @ApiOperation({ summary: "Delete user" })
   @Delete(":id")
   async remove(@Param("id") id: string) {
-    const user = await this.crudUsersService.removeUser(+id);
+    const user = await this.crudUsersService.findUser(+id);
+    await this.crudUsersService.removeUser(+id);
     return new UsersResource(user);
   }
 }

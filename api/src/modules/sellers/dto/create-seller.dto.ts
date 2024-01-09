@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -20,10 +19,10 @@ export class CreateSellerDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ example: "johny@gmail.com" })
+  @ApiProperty({ example: "@johny" })
   @IsNotEmpty()
-  @IsEmail({}, { message: "Please provide valid Email." })
-  email: string;
+  @IsString()
+  username: string;
 
   @ApiProperty({
     format: "binary",

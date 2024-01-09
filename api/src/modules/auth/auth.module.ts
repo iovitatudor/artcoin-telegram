@@ -12,12 +12,11 @@ import { SellersModule } from "../sellers/sellers.module";
     JwtModule.register({
       secret: process.env.PRIVATE_KEY || "artcoin-secret",
       signOptions: {
-        expiresIn: "24h",
-      },
-    }),
+        expiresIn: "24h"
+      }
+    })
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtModule]
 })
-export class AuthModule {
-}
+export class AuthModule {}

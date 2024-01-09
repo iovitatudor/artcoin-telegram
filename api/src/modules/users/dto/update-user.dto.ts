@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -20,11 +19,11 @@ export class UpdateUserDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ example: "johny@gmail.com", required: false })
-  @ValidateIf((o) => "email" in o)
+  @ApiProperty({ example: "@johny", required: false })
+  @ValidateIf((o) => "username" in o)
   @IsNotEmpty()
-  @IsEmail({}, { message: "Please provide valid Email." })
-  email: string;
+  @IsString()
+  username: string;
 
   @ApiProperty({ example: "+3736091232", required: false })
   @ValidateIf((o) => "phone" in o)

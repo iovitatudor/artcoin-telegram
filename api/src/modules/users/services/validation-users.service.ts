@@ -13,9 +13,9 @@ export class ValidationUsersService {
     this.validRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
   }
 
-  async validateEmail(email: string, id: number = 0): Promise<boolean> {
-    this.validateEmailFormat(email);
-    return await this.validateUniqueEmail(email, id);
+  async validateUsername(username: string, id: number = 0): Promise<boolean> {
+    // this.validateEmailFormat(username);
+    return await this.validateUniqueUsername(username, id);
   }
 
   validateEmailFormat(email: string): boolean {
@@ -28,13 +28,16 @@ export class ValidationUsersService {
     return true;
   }
 
-  async validateUniqueEmail(email: string, id: number = 0): Promise<boolean> {
+  async validateUniqueUsername(
+    username: string,
+    id: number = 0
+  ): Promise<boolean> {
     const users = await this.userRepository.find({
-      where: { email, id: Not(id) }
+      where: { username, id: Not(id) }
     });
     if (users.length > 0) {
       throw new HttpException(
-        "This email is already taken.",
+        "This username is already taken.",
         HttpStatus.BAD_REQUEST
       );
     }

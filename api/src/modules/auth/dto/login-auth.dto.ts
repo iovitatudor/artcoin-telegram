@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsEnum,
   IsNotEmpty,
   IsString,
@@ -13,10 +12,10 @@ const passwordRegEx =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
 export class LoginAuthDto {
-  @ApiProperty({ example: "johny@gmail.com" })
+  @ApiProperty({ example: "@johny@gmail.com" })
   @IsNotEmpty()
-  @IsEmail({}, { message: "Please provide valid Email." })
-  email: string;
+  @IsString()
+  username: string;
 
   @ApiProperty({ example: "qwerQWER1234%$" })
   @IsNotEmpty()

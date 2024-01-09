@@ -8,14 +8,14 @@ import {
   Delete,
   HttpCode,
   UseInterceptors,
-  UploadedFile,
+  UploadedFile
 } from "@nestjs/common";
 import {
   ApiConsumes,
   ApiNoContentResponse,
   ApiOperation,
   ApiResponse,
-  ApiTags,
+  ApiTags
 } from "@nestjs/swagger";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { CrudSellersService } from "./services/crud-sellers.service";
@@ -30,8 +30,7 @@ export class SellersController {
   constructor(
     private readonly crudSpecialistsService: CrudSellersService,
     private readonly validationSpecialistsService: ValidationSellersService
-  ) {
-  }
+  ) {}
 
   @ApiResponse({ status: 200, type: [SellersResource] })
   @ApiOperation({ summary: "Get all sellers" })
@@ -56,18 +55,18 @@ export class SellersController {
   @Post()
   async create(
     @Body() createSpecialistDto: CreateSellerDto,
-    @UploadedFile() avatar
+    @UploadedFile() avatar: any
   ) {
-    await this.validationSpecialistsService.validateEmail(
-      createSpecialistDto.email,
+    await this.validationSpecialistsService.validateUsername(
+      createSpecialistDto.username
     );
     const createdSpecialist = await this.crudSpecialistsService.create(
       createSpecialistDto,
-      avatar,
+      avatar
     );
 
     const specialist = await this.crudSpecialistsService.findOne(
-      createdSpecialist.id,
+      createdSpecialist.id
     );
     return new SellersResource(specialist);
   }
@@ -80,11 +79,11 @@ export class SellersController {
   async update(
     @Param("id") id: string,
     @Body() updateSpecialistDto: UpdateSellerDto,
-    @UploadedFile() avatar,
+    @UploadedFile() avatar: any
   ) {
-    await this.validationSpecialistsService.validateEmail(
-      updateSpecialistDto.email,
-      +id,
+    await this.validationSpecialistsService.validateUsername(
+      updateSpecialistDto.username,
+      +id
     );
     await this.crudSpecialistsService.update(+id, updateSpecialistDto, avatar);
     const specialist = await this.crudSpecialistsService.findOne(+id);
@@ -93,12 +92,13 @@ export class SellersController {
 
   @HttpCode(204)
   @ApiNoContentResponse({
-    description: "Item for the given id have been deleted",
+    description: "Item for the given id have been deleted"
   })
   @ApiOperation({ summary: "Delete specialist" })
   @Delete(":id")
   async remove(@Param("id") id: string) {
-    const specialist = await this.crudSpecialistsService.remove(+id);
+    const specialist = await this.crudSpecialistsService.findOne(+id);
+    await this.crudSpecialistsService.remove(+id);
     return new SellersResource(specialist);
   }
 }

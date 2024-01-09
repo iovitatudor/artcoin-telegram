@@ -12,11 +12,13 @@ export class CrudSellersService {
   constructor(
     @InjectRepository(Seller)
     private readonly specialistRepository: Repository<Seller>,
-    private readonly fileService: FilesService,
-  ) {
-  }
+    private readonly fileService: FilesService
+  ) {}
 
-  async create(createSpecialistDto: CreateSellerDto, avatar): Promise<Seller> {
+  async create(
+    createSpecialistDto: CreateSellerDto,
+    avatar: any
+  ): Promise<Seller> {
     try {
       if (avatar) {
         createSpecialistDto.avatar = await this.fileService.createFile(avatar);
@@ -24,7 +26,7 @@ export class CrudSellersService {
       if (createSpecialistDto.password) {
         createSpecialistDto.password = await bcrypt.hash(
           createSpecialistDto.password,
-          5,
+          5
         );
       }
       return await this.specialistRepository.save({ ...createSpecialistDto });
@@ -40,25 +42,25 @@ export class CrudSellersService {
   async findOne(id: number): Promise<Seller> {
     try {
       return await this.specialistRepository.findOneOrFail({
-        where: { id },
+        where: { id }
       });
     } catch (e) {
       throw new HttpException(
         "Could not find any specialist.",
-        HttpStatus.NOT_FOUND,
+        HttpStatus.NOT_FOUND
       );
     }
   }
 
-  async findByEmail(email: string): Promise<Seller> {
+  async findByUsername(username: string): Promise<Seller> {
     try {
       return await this.specialistRepository.findOneOrFail({
-        where: { email },
+        where: { username }
       });
     } catch (e) {
       throw new HttpException(
         "Could not find any specialist.",
-        HttpStatus.NOT_FOUND,
+        HttpStatus.NOT_FOUND
       );
     }
   }
@@ -66,7 +68,7 @@ export class CrudSellersService {
   async update(
     id: number,
     updateSpecialistDto: UpdateSellerDto,
-    avatar
+    avatar: any
   ): Promise<UpdateResult> {
     try {
       if (avatar) {

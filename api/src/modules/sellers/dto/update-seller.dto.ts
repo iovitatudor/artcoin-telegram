@@ -1,5 +1,4 @@
 import {
-  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -9,7 +8,6 @@ import {
 } from "class-validator";
 import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { CreateSellerDto } from "./create-seller.dto";
-
 
 const passwordRegEx =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -22,11 +20,11 @@ export class UpdateSellerDto extends PartialType(CreateSellerDto) {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ example: "johny@gmail.com", required: false })
-  @ValidateIf((o) => "email" in o)
-  @IsNotEmpty()
-  @IsEmail({}, { message: "Please provide valid Email." })
-  email: string;
+  @ApiProperty({ example: "@johny", required: false })
+  @ValidateIf((o) => "username" in o)
+  @IsOptional()
+  @IsString()
+  username: string;
 
   @ApiProperty({ format: "binary", required: false })
   @ValidateIf((o) => "avatar" in o)

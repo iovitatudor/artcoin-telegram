@@ -11,10 +11,10 @@ import * as bcrypt from "bcryptjs";
 export class CrudUsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly fileService: FilesService,
+    private readonly fileService: FilesService
   ) {}
 
-  async createUser(createUserDto: CreateUserDto, avatar): Promise<User> {
+  async createUser(createUserDto: CreateUserDto, avatar: any): Promise<User> {
     if (avatar) {
       createUserDto.avatar = await this.fileService.createFile(avatar);
     }
@@ -36,9 +36,9 @@ export class CrudUsersService {
     }
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByUsername(username: string): Promise<User> {
     try {
-      return await this.userRepository.findOneOrFail({ where: { email } });
+      return await this.userRepository.findOneOrFail({ where: { username } });
     } catch (e) {
       throw new HttpException("Could not find any user.", HttpStatus.NOT_FOUND);
     }
@@ -47,7 +47,7 @@ export class CrudUsersService {
   async updateUser(
     id: number,
     updateUserDto: UpdateUserDto,
-    avatar,
+    avatar: any
   ): Promise<UpdateResult> {
     if (!id)
       throw new HttpException(

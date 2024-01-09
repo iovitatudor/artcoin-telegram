@@ -10,7 +10,7 @@ export class Seller {
   name: string;
 
   @Column({ type: "varchar", length: 40 })
-  email: string;
+  username: string;
 
   @Column({ type: "varchar" })
   password: string;

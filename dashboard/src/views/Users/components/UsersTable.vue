@@ -12,7 +12,7 @@
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              Email
+              Username
             </th>
             <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
               Phone
@@ -52,7 +52,7 @@
             </td>
 
             <td class="align-middle text-left">
-              <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
+              <span class="text-secondary text-xs font-weight-bold">{{ user.username }}</span>
             </td>
             <td class="align-middle text-left">
               <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>

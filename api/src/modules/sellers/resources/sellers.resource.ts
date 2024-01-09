@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
+import { Seller } from "../entities/sellers.entity";
 
 @Injectable()
 export class SellersResource {
@@ -7,19 +8,19 @@ export class SellersResource {
   public id: number;
   @ApiProperty({ example: "John Doe" })
   public name: string;
-  @ApiProperty({ example: "johny@gmail.com" })
-  public email: string;
+  @ApiProperty({ example: "@johny" })
+  public username: string;
   @ApiProperty({ example: "johny-avatar.png" })
   public avatar: string;
 
-  public constructor(specialist) {
+  public constructor(specialist: Seller) {
     this.id = specialist.id;
     this.name = specialist.name;
-    this.email = specialist.email;
+    this.username = specialist.username;
     this.avatar = specialist.avatar;
   }
 
-  public static collect(specialists): SellersResource[] {
+  public static collect(specialists: any[]): SellersResource[] {
     return specialists.map((specialist) => {
       return new SellersResource(specialist);
     });

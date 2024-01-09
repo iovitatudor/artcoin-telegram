@@ -19,8 +19,7 @@ export class AuthService {
     private readonly validationUsersService: ValidationUsersService,
     private readonly crudSpecialistsService: CrudSellersService,
     private readonly validationSpecialistsService: ValidationSellersService
-  ) {
-  }
+  ) {}
 
   async login(loginAuthDto: LoginAuthDto) {
     if (loginAuthDto.type === AuthTypeEnum.seller) {
@@ -42,13 +41,13 @@ export class AuthService {
     let token = null;
 
     if (registerAuthDto.type === AuthTypeEnum.seller) {
-      await this.validationSpecialistsService.validateEmail(
-        registerAuthDto.email
+      await this.validationSpecialistsService.validateUsername(
+        registerAuthDto.username
       );
       const specialist = await this.crudSpecialistsService.create(
         {
           ...registerAuthDto,
-          avatar: "avatar-mock.png",
+          avatar: "avatar-mock.png"
         },
         null
       );
@@ -56,11 +55,13 @@ export class AuthService {
       return { token, specialistId: specialist.id };
     }
     if (registerAuthDto.type === AuthTypeEnum.user) {
-      await this.validationUsersService.validateEmail(registerAuthDto.email);
+      await this.validationUsersService.validateUsername(
+        registerAuthDto.username
+      );
       const user = await this.crudUsersService.createUser(
         {
           name: registerAuthDto.name,
-          email: registerAuthDto.email,
+          username: registerAuthDto.username,
           password: registerAuthDto.password,
           phone: null,
           avatar: "avatar-mock.png"
@@ -78,7 +79,7 @@ export class AuthService {
 
   private generateToken(entity: User | Seller, type: string): string {
     const payload = {
-      email: entity.email,
+      email: entity.username,
       name: entity.name,
       id: entity.id,
       type
@@ -87,11 +88,13 @@ export class AuthService {
   }
 
   private async checkUser(loginAuthDto: LoginAuthDto) {
-    const user = await this.crudUsersService.findByEmail(loginAuthDto.email);
+    const user = await this.crudUsersService.findByUsername(
+      loginAuthDto.username
+    );
 
     if (!user) {
       throw new UnauthorizedException({
-        message: "Email is incorrect"
+        message: "Username is incorrect"
       });
     }
 
@@ -103,13 +106,13 @@ export class AuthService {
     if (user && passwordsEquals) return user;
 
     throw new UnauthorizedException({
-      message: "Email or password is incorrect"
+      message: "Username or password is incorrect"
     });
   }
 
   private async checkSpecialist(loginAuthDto: LoginAuthDto) {
-    const specialist = await this.crudSpecialistsService.findByEmail(
-      loginAuthDto.email
+    const specialist = await this.crudSpecialistsService.findByUsername(
+      loginAuthDto.username
     );
 
     if (!specialist) {
