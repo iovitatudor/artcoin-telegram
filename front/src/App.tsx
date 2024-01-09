@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Navbar from "./components/Nabar";
 import './styles/styles.scss';
 import './styles/effects.scss';
-import './styles/telegram.scss';
+// import './styles/telegram.scss';
 import {createTheme, ThemeProvider} from '@mui/material';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -40,7 +40,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <MobileView>
+        {/*<MobileView>*/}
           <div className="App">
             <Header/>
             <div className="wrapper">
@@ -57,13 +57,13 @@ const App = () => {
             </div>
             <Navbar/>
           </div>
-        </MobileView>
-        <BrowserView>
-          <div className="telegram-redirect-message">
-            Sorry, ARTCOIN is only available via telegram
-            <p><a href="#">click here</a> to access </p>
-          </div>
-        </BrowserView>
+        {/*</MobileView>*/}
+        {/*<BrowserView>*/}
+        {/*  <div className="telegram-redirect-message">*/}
+        {/*    Sorry, ARTCOIN is only available via telegram*/}
+        {/*    <p><a href="#">click here</a> to access </p>*/}
+        {/*  </div>*/}
+        {/*</BrowserView>*/}
       </ThemeProvider>
     </BrowserRouter>
   )
