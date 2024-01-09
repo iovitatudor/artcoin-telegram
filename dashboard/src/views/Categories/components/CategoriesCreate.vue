@@ -91,8 +91,9 @@ export default {
   },
   methods: {
     ...mapMutations({
+      toggleConfigurator: "config/toggleConfigurator",
       hideConfigurator: "config/hideConfigurator",
-      navbarMinimize: "config/navbarMinimize"
+      navbarMinimize: "config/navbarMinimize",
     }),
     ...mapActions({
       addCategory: "categories/addCategory",

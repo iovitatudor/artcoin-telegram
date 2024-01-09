@@ -195,7 +195,6 @@ export default {
     ...mapMutations({
       toggleConfigurator: "config/toggleConfigurator",
       navbarMinimize: "config/navbarMinimize",
-
     }),
     ...mapActions({
       addProduct: "products/addProduct",
