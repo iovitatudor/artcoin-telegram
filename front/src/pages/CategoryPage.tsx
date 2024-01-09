@@ -1,23 +1,22 @@
 import React, {FC, useEffect, useState} from "react";
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import Product from "../components/Products/Product";
 import Filter from "../components/Filter";
 import Page404 from "../components/Page404";
 import {CategoryType} from "../types/CategoryType";
-import {Button, Container, Grid} from "@mui/material";
+import {Container, Grid} from "@mui/material";
 import {categoriesApi} from "../api/categoriesApi";
 import {productsApi} from "../api/productsApi";
 
 const CategoryPage: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
+  const [searchParams] = useSearchParams();
   const {categoryId} = useParams();
   const [currentCategory, setCurrentCategory] = useState<CategoryType | null | undefined>();
   const [filterDrawer, setFilterDrawer] = useState(false);
-  const [filterClassName, setFilterClassName] = useState('');
+  const [filterUrl, setFilterUrl] = useState<string>("");
+
   const fetchAllCategories = categoriesApi.useFetchAllCategoriesQuery;
   const {data: categories} = fetchAllCategories();
-  const [filterUrl, setFilterUrl] = useState<string>("");
 
   const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
   const {data: products} = fetchProductsByCategory({
@@ -44,18 +43,13 @@ const CategoryPage: FC = () => {
 
   const closeFilterDrawer = () => {
     setFilterDrawer(false);
-    setFilterClassName('')
   };
   const openFilterDrawer = () => {
     setFilterDrawer(true);
-    setFilterClassName('filter-find-products-active')
   };
 
   const handleFilterUrl = (url: string) => {
     setFilterUrl(url);
-  }
-  const handleFilterProducts = () => {
-    console.log(filterUrl);
   }
 
   return (

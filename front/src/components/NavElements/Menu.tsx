@@ -32,10 +32,13 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
           role="presentation"
           style={{background: '#1f7199', height: '100%'}}
         >
-          <Link to="/" className='logo'>
+          <Link to="/" className="logo">
             <img src="/images/logo.svg" alt="" onClick={closeDrawer}/>
           </Link>
           <Divider sx={{pb: 2}}/>
+
+          <div className="menu-greeting">Hi, <b>@iovitatudor</b></div>
+
           {
             categories && categories.map(category =>
               category.children && category.children.length > 0 ?

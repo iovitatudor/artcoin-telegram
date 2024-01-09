@@ -1,19 +1,18 @@
 import React, {FC, useEffect, useState} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import {Button} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import FilterListIcon from '@mui/icons-material/FilterList';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Box from "@mui/material/Box";
+import CloseIcon from "@mui/icons-material/Close";
+import RemoveIcon from '@mui/icons-material/Remove';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import {Button} from "@mui/material";
 import {AvailabilityEnum} from "../enums/AvailabilityEnum";
 import {LocationEnum} from "../enums/LocationEnum";
-import RemoveIcon from '@mui/icons-material/Remove';
-import {productsApi} from "../api/productsApi";
-import {useNavigate, useSearchParams} from "react-router-dom";
 
 interface IFilterProps {
   isOpenDrawer: boolean;
@@ -32,6 +31,8 @@ interface IFilterOptions {
 
 const filterParams: IFilterOptions = {};
 let searchURL: string = '';
+let availabilityItems: any[] = [];
+let locationItems: any[] = [];
 
 const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handleFilterUrl, categoryId}) => {
   const navigate = useNavigate();
@@ -40,11 +41,7 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
   const [selectedLocation, setSelectedLocation] = useState<Array<string>>([]);
   const [priceMin, setPriceMin] = useState<string>("");
   const [priceMax, setPriceMax] = useState<string>("");
-  const [filter, setFilter] = useState<string>("");
   const [filterClassName, setFilterClassName] = useState('');
-
-  const fetchProductsByCategory = productsApi.useFetchProductsByCategoryQuery;
-  fetchProductsByCategory({categoryId: categoryId ? 0 : 0, filter});
 
   useEffect(() => {
     const urlPriceMin = searchParams.get('priceMin');
@@ -56,16 +53,13 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
     setPriceMin(urlPriceMin ? urlPriceMin.toString() : '');
     setSelectedAvailability(urlAvailability ? urlAvailability.split('|') : [])
     setSelectedLocation(urlLocation ? urlLocation.split('|') : [])
-
+    searchURL = searchParams.toString();
   }, []);
+
   const createSearchURL = () => {
     searchURL = '';
-    if (filterParams?.priceMin) {
-      searchURL = `priceMin=${filterParams.priceMin}&`;
-    }
-    if (filterParams?.priceMax) {
-      searchURL = `${searchURL}priceMax=${filterParams.priceMax}&`;
-    }
+    if (filterParams?.priceMin) searchURL = `priceMin=${filterParams.priceMin}&`
+    if (filterParams?.priceMax) searchURL = `${searchURL}priceMax=${filterParams.priceMax}&`
     if (filterParams?.availability) {
       const availabilityOptions = filterParams?.availability.join('|');
       searchURL = `${searchURL}availability=${availabilityOptions}&`;
@@ -79,7 +73,6 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
 
   const handleAvailabilityFilterChange = (event: { target: { value: any; checked: any; }; }) => {
     const checkedId = event.target.value;
-    let availabilityItems: any[] = [];
 
     if (event.target.checked) {
       setSelectedAvailability([...selectedAvailability, checkedId])
@@ -94,15 +87,16 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
 
   const handleLocationFilterChange = (event: { target: { value: any; checked: any; }; }) => {
     const checkedId = event.target.value;
-    let locationItems: any[] = [];
 
     if (event.target.checked) {
       setSelectedLocation([...selectedLocation, checkedId]);
       locationItems = [...selectedLocation, checkedId];
     } else {
+      console.log(locationItems);
       setSelectedLocation(selectedLocation.filter(id => id !== checkedId));
       locationItems = locationItems.filter(id => id !== checkedId);
     }
+    console.log(locationItems);
     filterParams.location = locationItems;
     createSearchURL();
   }
@@ -146,7 +140,7 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
             </div>
             <div className="filter-price">
               <Box sx={{m: 3}}>
-                <label htmlFor=""><span className="filter-label">Price <small>(ArtCoin)</small></span></label>
+                <label><span className="filter-label">Price <small>(ArtCoin)</small></span></label>
                 <div className="filter-price-inside">
                   <input type="number" id="search-bar" placeholder="Min" value={priceMin} onChange={handlePriceMin}/>
                   <RemoveIcon sx={{color: 'white'}}/>

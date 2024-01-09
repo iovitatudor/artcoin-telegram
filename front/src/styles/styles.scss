@@ -83,6 +83,14 @@ body {
 
 .drawer-area {
   background-color: #DD1A33;
+
+  .menu-greeting {
+    margin: 20px;
+    font-family: "Muli", sans-serif;
+    b {
+      font-weight: 600;
+    }
+  }
 }
 
 .content-area {
