@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
-import Product from "../components/Products/Product";
+import Product from "../components/Product";
 import Filter from "../components/Filter";
 import Page404 from "../components/Page404";
 import {CategoryType} from "../types/CategoryType";

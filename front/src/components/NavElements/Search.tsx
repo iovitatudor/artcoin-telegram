@@ -44,7 +44,7 @@ const Search: FC<ISearchProps> = ({closeDrawer, isOpenDrawer}) => {
           className="search-area-inside"
           sx={{width: '100%'}}
           role="presentation"
-          style={{background: '#1f7199', height: '100%'}}
+          style={{height: '100%'}}
         >
           <div className="drawer-top-area">
             <Button onClick={closeDrawer} sx={{pt: 2, pb: 2}}><CloseIcon/></Button>

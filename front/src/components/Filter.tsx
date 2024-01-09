@@ -133,7 +133,6 @@ const Filter: FC<IFilterProps> = ({isOpenDrawer, closeDrawer, openDrawer, handle
             className="filter-area-inside"
             sx={{width: '100%', paddingBottom: '60px'}}
             role="presentation"
-            style={{background: '#1f7199'}}
           >
             <div className="drawer-top-area">
               <Button sx={{mt: 2}} onClick={closeDrawer}><CloseIcon/></Button>

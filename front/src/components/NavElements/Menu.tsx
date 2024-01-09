@@ -30,7 +30,7 @@ const Menu: FC<IMenuProps> = ({openDrawer, closeDrawer, isOpenDrawer}) => {
           className="drawer-area"
           sx={{width: 300}}
           role="presentation"
-          style={{background: '#1f7199', height: '100%'}}
+          style={{height: '100%'}}
         >
           <Link to="/" className="logo">
             <img src="/images/logo.svg" alt="" onClick={closeDrawer}/>

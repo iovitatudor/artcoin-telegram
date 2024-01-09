@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {Container, Grid} from "@mui/material";
 import {productsApi} from "../api/productsApi";
-import Product from "../components/Products/Product";
+import Product from "../components/Product";
 
 const HomePage: FC = () => {
   const fetchTopProducts = productsApi.useFetchTopProductsQuery;

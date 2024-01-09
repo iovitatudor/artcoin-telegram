@@ -23,6 +23,10 @@ body {
   position: relative;
 }
 
+.drawer-area, .search-area-inside, .filter-area-inside {
+  background-color: #1f7199;
+}
+
 .logo {
   text-align: center;
   display: flex;
@@ -82,11 +86,11 @@ body {
 }
 
 .drawer-area {
-  background-color: #DD1A33;
 
   .menu-greeting {
     margin: 20px;
     font-family: "Muli", sans-serif;
+
     b {
       font-weight: 600;
     }
@@ -265,5 +269,27 @@ body {
   left: 50%;
   bottom: 90px;
   margin-left: -100px;
+}
 
+.telegram-redirect-message {
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  line-height: 2;
+  color: #2C3E50;
+
+  p {
+    font-size: 30px;
+
+    color: #2C3E50;
+
+    a {
+      color: #2C3E50;
+    }
+  }
 }
