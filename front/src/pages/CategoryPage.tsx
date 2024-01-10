@@ -1,14 +1,16 @@
 import React, {FC, useEffect, useState} from "react";
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import Product from "../components/Product";
 import Filter from "../components/Filter";
 import Page404 from "../components/Page404";
 import {CategoryType} from "../types/CategoryType";
-import {Container, Grid} from "@mui/material";
+import {Button, Container, Grid} from "@mui/material";
 import {categoriesApi} from "../api/categoriesApi";
 import {productsApi} from "../api/productsApi";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const CategoryPage: FC = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const {categoryId} = useParams();
   const [ready, setReady] = useState<boolean>(false);
@@ -65,11 +67,14 @@ const CategoryPage: FC = () => {
                     categoryId={categoryId}/>
             <Container maxWidth={'xl'}>
               <Grid container>
-                <Grid item xs={12}>
+                <Grid item xs={12} className="main-heading">
+                  <div className="back-icon">
+                    <Button onClick={() => navigate(-1)}><ArrowBackIosIcon/></Button>
+                  </div>
                   <h2>{currentCategory?.name}</h2>
                 </Grid>
                 {
-                  products && products.map(product =>
+                products && products.map(product =>
                     <Grid item xs={12} md={12} key={product.id}><Product product={product}/></Grid>
                   )
                 }

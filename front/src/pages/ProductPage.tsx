@@ -1,11 +1,13 @@
 import React, {FC} from "react";
-import {Container, Grid} from "@mui/material";
-import {Link, useParams} from "react-router-dom";
+import {Button, Container, Grid} from "@mui/material";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {productsApi} from "../api/productsApi";
 import Page404 from "../components/Page404";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const ProductPage: FC = () => {
+  const navigate = useNavigate();
   const {productId} = useParams();
   const fetchProductById = productsApi.useFetchProductByIdQuery;
   const {data: currentProduct} = fetchProductById(productId ? parseInt(productId) : 0);
@@ -16,7 +18,12 @@ const ProductPage: FC = () => {
         currentProduct ?
           <Container maxWidth={'xl'}>
             <Grid container>
-              <Grid item xs={12}><h2>{currentProduct.name}</h2></Grid>
+              <Grid item xs={12} className="main-heading">
+                <div className="back-icon">
+                  <Button onClick={() => navigate(-1)}><ArrowBackIosIcon/></Button>
+                </div>
+                <h2 className="product-heading">{currentProduct.name}</h2>
+              </Grid>
               <div className="wsk-cp-product">
                 <div className="wsk-cp-img">
                   <Link to={`/product/${currentProduct?.id}`}>
@@ -27,10 +34,11 @@ const ProductPage: FC = () => {
                 </div>
                 <div className="wsk-cp-text">
                   <div className="description-prod">
+                    <h3 style={{marginBottom: "15px", marginTop: "15px"}}>{currentProduct.name}</h3>
                     <p>{currentProduct.description}</p>
                   </div>
                   <div className="card-footer">
-                    <div className="wcf-left">
+                  <div className="wcf-left">
                       <span className="price">{currentProduct.price} ARTCOIN
                         <span>per {currentProduct.unit_item}</span>
                       </span>
