@@ -36,7 +36,7 @@ const Search: FC<ISearchProps> = ({closeDrawer, isOpenDrawer}) => {
   return (
     <div className="search-drawer-area">
       <Drawer
-        anchor={'bottom'}
+        anchor={'top'}
         open={isOpenDrawer}
         onClose={closeDrawer}
       >

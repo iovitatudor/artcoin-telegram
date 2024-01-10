@@ -30,10 +30,9 @@
           </div>
           <div class="col-md-12">
             <label class="form-control-label">Description</label>
-            <argon-textarea
-                name="description"
-                :value="form.description"
-                @input="form.description = $event.target.value"/>
+            <div class="form-group">
+              <textarea class="form-control" rows="5" v-model="form.description"></textarea>
+            </div>
           </div>
           <div class="col-md-12">
             <div class="alert" role="alert">
@@ -58,10 +57,9 @@ import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import {mapActions, mapMutations, mapGetters} from "vuex";
-import ArgonTextarea from "@/components/ArgonTextarea.vue";
 
 export default {
-  components: {ArgonTextarea, ArgonInput, ArgonButton, Configurator},
+  components: {ArgonInput, ArgonButton, Configurator},
   data() {
     return {
       errors: [],
@@ -112,15 +110,17 @@ export default {
       this.errors = [];
 
       if (this.form.name === null || this.form.name.length < 1) {
-        this.errors.push(`${this.form.name} is required!`);
+        this.errors.push(`Name is required!`);
         return false;
       }
       return true;
     },
     resetForm() {
+      console.log('reset form')
       this.form.parentId = 1;
       this.form.name = null;
       this.form.description = null;
+      console.log(this.form.description)
     }
   },
 }

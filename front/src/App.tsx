@@ -15,7 +15,7 @@ import BecomeSellerPage from "./pages/BecomeSellerPage";
 import HowToBuy from "./pages/HowToBuy";
 import {BrowserView, MobileView} from 'react-device-detect';
 
-// @ts-ignore
+//@ts-ignore
 // const tg = window.Telegram.WebApp
 
 const theme = createTheme({
@@ -29,6 +29,10 @@ const theme = createTheme({
 });
 
 const App = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  //@ts-ignore
+  // console.log(tg?.initDataUnsafe?.user?.username)
+
   // const handleBtn = (price: number) => {
   //   tg.MainButton.hide();
   //   tg.MainButton.show();
@@ -41,22 +45,22 @@ const App = () => {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         {/*<MobileView>*/}
-          <div className="App">
-            <Header/>
-            <div className="wrapper">
-              <Routes>
-                <Route index element={<HomePage/>}/>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/category/:categoryId" element={<CategoryPage/>}/>
-                <Route path="/product/:productId" element={<ProductPage/>}/>
-                <Route path="/about" element={<AboutPage/>}/>
-                <Route path="/become-seller" element={<BecomeSellerPage/>}/>
-                <Route path="/how-to-buy" element={<HowToBuy/>}/>
-                <Route path="/terms-and-conditions" element={<TermsConditionsPage/>}/>
-              </Routes>
-            </div>
-            <Navbar/>
+        <div className="App">
+          <Header/>
+          <div className="wrapper">
+            <Routes>
+              <Route index element={<HomePage/>}/>
+              <Route path="/" element={<HomePage/>}/>
+              <Route path="/category/:categoryId" element={<CategoryPage/>}/>
+              <Route path="/product/:productId" element={<ProductPage/>}/>
+              <Route path="/about" element={<AboutPage/>}/>
+              <Route path="/become-seller" element={<BecomeSellerPage/>}/>
+              <Route path="/how-to-buy" element={<HowToBuy/>}/>
+              <Route path="/terms-and-conditions" element={<TermsConditionsPage/>}/>
+            </Routes>
           </div>
+          <Navbar/>
+        </div>
         {/*</MobileView>*/}
         {/*<BrowserView>*/}
         {/*  <div className="telegram-redirect-message">*/}

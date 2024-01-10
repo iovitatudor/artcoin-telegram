@@ -159,8 +159,8 @@ export default {
       this.form.username = null;
       this.form.phone = null;
       this.form.avatar = null;
-      this.form.password = null;
-      this.form.passwordConfirmation = null;
+      this.form.password = "aaBBccDD12!@";
+      this.form.passwordConfirmation = "aaBBccDD12!@";
     }
   },
 }

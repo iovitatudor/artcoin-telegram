@@ -25,10 +25,9 @@
           </div>
           <div class="col-md-12">
             <label class="form-control-label">Description</label>
-            <argon-textarea
-                name="description"
-                :value="form.description"
-                @input="form.description = $event.target.value"/>
+            <div class="form-group">
+              <textarea class="form-control" rows="5" v-model="form.description"></textarea>
+            </div>
           </div>
           <div class="col-md-12">
             <label class="form-control-label">Price</label>
@@ -143,7 +142,6 @@ import Configurator from "@/widgets/Configurator.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 import {mapActions, mapMutations, mapGetters} from "vuex";
-import ArgonTextarea from "@/components/ArgonTextarea.vue";
 
 export default {
   props: {
@@ -151,7 +149,7 @@ export default {
       type: Object,
     },
   },
-  components: {ArgonTextarea, ArgonInput, ArgonButton, Configurator},
+  components: {ArgonInput, ArgonButton, Configurator},
   data() {
     return {
       errors: [],
@@ -261,6 +259,7 @@ export default {
 .form-group {
   margin-bottom: 0px !important;
 }
+
 .card .card-body {
   overflow-y: scroll;
 }
